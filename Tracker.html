@@ -219,7 +219,7 @@
 
 .contain{
    bottom: 0;
-   height: 80%;
+   height: 85%;
    margin: auto;
    left: 0;
    position: absolute;
@@ -230,7 +230,7 @@
 }
 .containBelow{
    bottom: 0;
-   height: 20%;
+   height: 15%;
    margin: auto;
    left: 0;
    position: absolute;
@@ -238,6 +238,38 @@
    top: 100%;
    width: 100%;
    background-color: #134;
+}
+
+.btn {
+  background: #dedeb4;
+  background-image: -webkit-linear-gradient(top, #dedeb4, #e3e3a8);
+  background-image: -moz-linear-gradient(top, #dedeb4, #e3e3a8);
+  background-image: -ms-linear-gradient(top, #dedeb4, #e3e3a8);
+  background-image: -o-linear-gradient(top, #dedeb4, #e3e3a8);
+  background-image: linear-gradient(to bottom, #dedeb4, #e3e3a8);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #134;
+  font-size: 16px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #55552b;
+  background-image: -webkit-linear-gradient(top, #55552b, #55552b);
+  background-image: -moz-linear-gradient(top, #55552b, #55552b);
+  background-image: -ms-linear-gradient(top, #55552b, #55552b);
+  background-image: -o-linear-gradient(top, #55552b, #55552b);
+  background-image: linear-gradient(to bottom, #55552b, #55552b);
+  text-decoration: none;
+}
+
+#inner {
+    display: table;
+    margin: 0 auto; 
 }
 
     </style>
@@ -332,7 +364,14 @@
 	   </script>
 	   </div>
       <div class="containBelow">
-         <center> <br>Button's go here!</center><br>
+         &nbsp;&nbsp;&nbsp;
+         <select name="dropDownBox">
+            <option value="Option1">Geofence #1</option>
+            <option value="Option2">Geofence #2</option>
+         </select>
+         <div id="inner">
+            <button class="btn">Save New</button>
+         </div>
       </div>
       
     </div>

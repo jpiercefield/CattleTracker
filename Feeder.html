@@ -2,14 +2,17 @@
 <html>
 <head>
     
+  <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
   <meta charset="UTF-8">
-  <title>Cattle Tracker</title>
+  <title>Feeder - Cattle Tracker</title>
   
   
   
-      <style>
-      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-      *, *:after, *:before {
+<style type="text/css">
+
+/***************-----START TOOLBAR-----***************/
+/* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+*, *:after, *:before {
   box-sizing: border-box;
 }
 
@@ -63,6 +66,8 @@
   display: inline-block;
   font-size: 15px;
 }
+
+/* Menu Bar Text */
 .animenu a {
   color: #cccc99;
   text-decoration: none;
@@ -144,11 +149,9 @@
   .animenu__toggle {
     display: inline-block;
   }
-
-  .animenu__nav,
-  .animenu__nav__child {
-    display: none;
-  }
+  .animenu__nav, .animenu__nav__child {
+      display: none;
+   }
 
   .animenu__nav {
     margin: 10px 0;
@@ -206,49 +209,185 @@
 .animenu__nav--open .animenu__nav__child {
   display: block;
 }
+/***************-----END TOOLBAR-----***************/
 
-#container {
-   bottom: 0;
+
+/* MAIN CONTAINER FOR Video AND 24 Hours, 7 Day, 30 Day Feed */
+#containerMain {
    height: 65%;
    margin: auto;
    left: 0;
    position: absolute;
    right: 0;
+   top: 17.5%;
+   bottom: 17.5%;
+   width: 90%;
+}
+
+/***** Containers for Video Feed AND Buttons ******/
+/*---------------------------------------*/
+/* M - Holds(Video, and then */
+#containerVideo {
+   bottom: 0;
+   height: 100%;
+   margin: auto;
+   position: absolute;
+   right: 0;
+   top: 0;
+   width: 50%; 
+   background-color: rgba(255, 216, 0, 0.4);     
+}
+
+/***** 24 Hours, 7 Day, 30 Day Feed ******/
+/*---------------BEGIN--------------------*/
+
+/* Container for 24 Hours, 7 Day, 30 Day Feed */
+#containerFeed{
+   bottom: 0;
+   margin: auto;
+   position: absolute;
+   right: 50%;
    top: 0;
    width: 50%;   
 }
 
-.contain{
-   bottom: 0;
-   height: 80%;
-   margin: auto;
-   left: 0;
-   position: absolute;
-   right: 0;
-   top: 0;
-   width: 100%;
-   background-color: #55552b;
+/* Style the tab */
+div.tab {
+    position: relative;
+    overflow: hidden;
+    background-color: #134; /* Tab Background Color */
+    width: 100%;
 }
-.containBelow{
-   bottom: 0;
-   height: 20%;
-   margin: auto;
-   left: 0;
-   position: absolute;
-   right: 0;
-   top: 100%;
-   width: 100%;
-   background-color: #134;
+
+/* Style the links inside the tab */
+div.tab a {
+    position: relative;
+    float: left;
+    width: 33.33%;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 2vw; overflow: hidden;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size : 2vw;overflow: hidden;
+    border: 3px solid #cccc99; /* Tab Inside Border Color */
+}
+
+/* Change background color of links on hover */
+div.tab a:hover {
+    background-color: #55552b; /* Hover Color */
+}
+
+/* Create an active/current tablink class */
+div.tab a:focus, .active {
+    background-color: #55552b; /* Clicked Color */
+}
+
+/* Style the tab content */
+.tabcontent {
+    position: relative;
+    height: 100%;
+    top: 0;
+    margin: 0;
+    display: none;
+    border-top: none;
+    border-bottom: none;
 }
 
 
-    </style>
+/***** ---END--- Containers for Video Feed AND Buttons ******/
+
+html, body {
+   margin: 0; 
+   padding: 0; 
+   width: 100%; 
+   height: 100%; 
+   overflow: hidden; 
+   text-align: left;
+   font-family: "Lato", sans-serif;
+}
+
+/* Background Photo Scale to fit */
+html { 
+  background: url(Images/photo_bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+
+/* TEST TABLEEEEE *************/
+h1{
+  font-size: 30px;
+  color: #55552b;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+table{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+  background-color: rgbargba(17, 51, 68, 1);
+ }
+.tbl-content{
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 5px solid rgba(17, 51, 68, 1);
+  background-color: rgba(17, 51, 68, 1);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 14px;
+  color: #000;
+  text-transform: uppercase;
+  text-decoration: underline;
+  background-color: rgba(17, 51, 68, 1);
+  border-bottom: solid 2px rgba(255, 216, 0, 0.4);
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: bold;
+  font-size: 16px;
+  color: #000;
+  border-bottom: solid 2px rgba(255, 216, 0, 0.4);
+}
+
+/* demo styles */
+
+section{
+  margin: 50px;
+}
+
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+    width: 6px;
+} 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+/*TEST TABLE END*/
+
+</style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-  <div style='position:absolute;z-index:0;left:0;top:0;width:100%;height:100%'>
-     <img src='Images/photo_bg.jpg' style='width:100%;height:100%' alt='[]' />
-  </div>
+  
 </head>
 <body>
+
   <nav class="animenu"> 
   <button class="animenu__toggle">
     <span class="animenu__toggle__bar"></span>
@@ -281,25 +420,136 @@
         <li><a href="Add.html">Add Herd/Cow</a></li>
         <li><a href="Delete.html">Delete Herd/Cow</a></li>
       </ul>
-    </li>
-    <li>
-      <a href="#">About</a>
-    </li>
-    <li>
-      <a href="#">Contact</a>
-    </li>                 
+    </li>                
   </ul>
 </nav>
-   <div id="container">
-      <div class="contain">
-          Video here
-        
-      <div class="containBelow">
-         <center> <br><br>Button's go here!</center><br>
-      </div>
-      </div>
-      
-    </div>
-    <script src="js/index.js"></script>
 
+<div id="containerMain">
+   <div id="containerFeed">
+      <div class="tab">
+         <a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 
+                  '24 Hours')" id="defaultOpen"><font color="cccc99">24 Hours</font></a>
+         <a href="javascript:void(0)" class="tablinks" onclick="openCity(event,
+                  '7 Days')"><font color="cccc99">7 Days</font></a>
+         <a href="javascript:void(0)" class="tablinks" onclick="openCity(event,
+                  '30 Days')"><font color="cccc99">30 Days</font></a>
+      </div>
+
+      <div id="24 Hours" class="tabcontent">
+         <h1>24 Hour Feed</h1>
+            <div class="tbl-header">
+               <table cellpadding="0" cellspacing="0" border="0">
+                  <thead>
+                     <tr>
+                        <th>Tag ID</th>
+                        <th>Time</th>
+                     </tr>
+                  </thead>
+               </table>
+            </div>
+            <div class="tbl-content">
+               <table cellpadding="0" cellspacing="0" border="0">
+                  <tbody>
+                     <tr>
+                        <td>135</td>
+                        <td>8:23 P.M.</td>
+                     </tr>
+                     <tr>
+                        <td>456</td>
+                        <td>9:42 P.M.</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+
+      <div id="7 Days" class="tabcontent">
+         <h1>7 Day Feed</h1>
+            <div class="tbl-header">
+               <table cellpadding="0" cellspacing="0" border="0">
+                  <thead>
+                     <tr>
+                        <th>Tag ID</th>
+                        <th>Time</th>
+                     </tr>
+                  </thead>
+               </table>
+            </div>
+            <div class="tbl-content">
+               <table cellpadding="0" cellspacing="0" border="0">
+                  <tbody>
+                     <tr>
+                        <td>222</td>
+                        <td>7:13 P.M.</td>
+                     </tr>
+                     <tr>
+                        <td>333</td>
+                        <td>10:43 P.M.</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>   
+                
+      <div id="30 Days" class="tabcontent">
+         <h1>30 Day Feed</h1>
+            <div class="tbl-header">
+               <table cellpadding="0" cellspacing="0" border="0">
+                  <thead>
+                     <tr>
+                        <th>Tag ID</th>
+                        <th>Time</th>
+                     </tr>
+                  </thead>
+               </table>
+            </div>
+            <div class="tbl-content">
+               <table cellpadding="0" cellspacing="0" border="0">
+                  <tbody>
+                     <tr>
+                        <td>444</td>
+                        <td>1:23 A.M.</td>
+                     </tr>
+                     <tr>
+                        <td>555</td>
+                        <td>3:41 P.M.</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+   </div>
+
+   <div id="containerVideo">
+      <br><br><br><br><center>Video Feed Here</center> <br><br><br>
+      <bold><center>COMING SOON!</center></bold>           
+   </div>
+</div>
+
+      <script src="js/index.js"></script>
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+<script>
+$(window).on("load resize ", function() {
+  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+  $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
+</script>
 </body>
+</html>

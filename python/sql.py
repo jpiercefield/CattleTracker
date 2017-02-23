@@ -30,7 +30,7 @@ def updateTable(visits, tag):
 			session.commit()
 		else:
 		 	session.query(Feeder).filter(Feeder.ref_id == tag).\
-		 	update({Feeder.num_visits: Feeder.num_visits + 1})
+		 	update({Feeder.num_visits: Feeder.num_visits + 1, Feeder.last_visit_date: datetime.datetime.now()})
 			session.commit()
 		
 	except:

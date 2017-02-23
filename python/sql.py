@@ -22,9 +22,16 @@ class Feeder(Base):
 def updateTable(visits, tag):
 	try:
 		session = Session()
-		q = Feeder(ref_id = tag, num_visits = 1, last_visit_date = datetime.datetime.now())
-		session.add(q)
-		session.commit()
+		truth = session.query(exists().where(Feeder.ref_id == tag)).scalar()
+		print(truth)
+		if truth is False:
+			q = Feeder(ref_id = tag, num_visits = 1, last_visit_date = datetime.datetime.now())
+			session.add(q)
+			session.commit()
+		else:
+		 	session.query(Feeder).filter(Feeder.ref_id == tag).\
+		 	update({Feeder.num_visits: Feeder.num_visits + 1})
+			session.commit()
 		
 	except:
 		session.rollback()
@@ -35,40 +42,13 @@ def updateTable(visits, tag):
 #		  
 def main():
 	visits = 2
-	ref = 99999
+	ref = 111222
 	try:
 		updateTable(visits, ref)
-	except: 
-		print("errors have occured")
+	except exc.SQLAlchemyError as e: 
+		print(exc.getmessage())
 
 if __name__ == '__main__': main()
-##Second try.  This time using a connection without the ORM.  
-# Base.metadata.create_all(engine)
-# try:
-# 	connect = engine.connect()
-# 	result = connect.execute("select * from animal")
-# 	for row in result:
-# 	    print("id:", row['animal_id'])
-# 	connect.close()
-# except exc.OperationalError:
-# 	print("Unable to connect to database!")
 
-
-#####Original Try
-# class feeder(Base):
-# 	__tablename__ = 'feeder'
-# 	__table_args__ = {'autoload':True}
-
-# def loadSession():
-# 	metadata = Base.metadata
-# 	Session = sessionmaker(bind=engine)
-# 	session = Session()
-# 	return session
-
-	
-# 	session = loadSession()
-# 	q = session.query(feeder).filter(feeder.ref_id==1111)
-# 	if session.query(q.exists()).scalar():
-# 		print("it exists")
 
 	

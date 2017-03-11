@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import time
-import bitarray as bt
 from serial import Serial, SEVENBITS, EIGHTBITS, STOPBITS_ONE, PARITY_NONE
 import io
 from sqlalchemy import create_engine, Column, Integer, String, DateTime

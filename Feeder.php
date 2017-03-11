@@ -396,29 +396,29 @@ section{
   </button>
   <ul class="animenu__nav">
     <li>
-      <a href="index.html">Home</a>
+      <a href="index.php">Home</a>
     </li>
     <li>
-      <a href="Feeder.html">Live Feeder</a>
+      <a href="Feeder.php">Live Feeder</a>
       <ul class="animenu__nav__child">
-        <li><a href="Feeder.html">Feeder Home</a></li>
-        <li><a href="FeederSettings.html">Settings</a></li>
+        <li><a href="Feeder.php">Feeder Home</a></li>
+        <li><a href="FeederSettings.php">Settings</a></li>
       </ul>
     </li> 
     <li>
-      <a href="Tracker.html">Cattle Tracker</a>
+      <a href="Tracker.php">Cattle Tracker</a>
       <ul class="animenu__nav__child">
-        <li><a href="Tracker.html">Tracker Home</a></li>
+        <li><a href="Tracker.php">Tracker Home</a></li>
         <li><a href="">Create New Geofence</a></li>
         <li><a href="TrackerSettings">Settings</a></li>
       </ul>
     </li>     
     <li>
-      <a href="Database.html">Database</a>
+      <a href="Database.php">Database</a>
       <ul class="animenu__nav__child">
         <li><a href="">Search</a></li>
-        <li><a href="Add.html">Add Herd/Cow</a></li>
-        <li><a href="Delete.html">Delete Herd/Cow</a></li>
+        <li><a href="Add.php">Add Herd/Cow</a></li>
+        <li><a href="Delete.php">Delete Herd/Cow</a></li>
       </ul>
     </li>                
   </ul>

@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Cattle Tracker</title>
+  <title>Home - Cattle Tracker</title>
   
   
   
@@ -69,7 +70,6 @@
 
 .animenu__nav {
   background-color: #134;
-  position: relative;
 }
 .animenu__nav > li {
   position: relative;
@@ -206,81 +206,12 @@
   display: block;
 }
 
-#container {
-   bottom: 0;
-   height: 65%;
-   margin: auto;
-   left: 0;
-   position: absolute;
-   right: 0;
-   top: 0;
-   width: 50%;   
-}
-
-.contain{
-   bottom: 0;
-   height: 85%;
-   margin: auto;
-   left: 0;
-   position: absolute;
-   right: 0;
-   top: 0;
-   width: 100%;
-   background-color: #55552b;
-}
-.containBelow{
-   bottom: 0;
-   height: 15%;
-   margin: auto;
-   left: 0;
-   position: absolute;
-   right: 0;
-   top: 100%;
-   width: 100%;
-   background-color: #134;
-}
-
-.btn {
-  background: #dedeb4;
-  background-image: -webkit-linear-gradient(top, #dedeb4, #e3e3a8);
-  background-image: -moz-linear-gradient(top, #dedeb4, #e3e3a8);
-  background-image: -ms-linear-gradient(top, #dedeb4, #e3e3a8);
-  background-image: -o-linear-gradient(top, #dedeb4, #e3e3a8);
-  background-image: linear-gradient(to bottom, #dedeb4, #e3e3a8);
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
-  border-radius: 28px;
-  font-family: Arial;
-  color: #134;
-  font-size: 16px;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-}
-
-.btn:hover {
-  background: #55552b;
-  background-image: -webkit-linear-gradient(top, #55552b, #55552b);
-  background-image: -moz-linear-gradient(top, #55552b, #55552b);
-  background-image: -ms-linear-gradient(top, #55552b, #55552b);
-  background-image: -o-linear-gradient(top, #55552b, #55552b);
-  background-image: linear-gradient(to bottom, #55552b, #55552b);
-  text-decoration: none;
-}
-
-#inner {
-    display: table;
-    margin: 0 auto; 
-}
-
     </style>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-<div style='position:absolute;z-index:0;left:0;top:0;width:100%;height:100%'>
-  <img src='Images/photo_bg.jpg' style='width:100%;height:100%' alt='[]' />
-</div>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDVyUJICgLiFeXNfnid1LKZNPph3GYL7HE"></script>
-	<script src="./gmaps/gmaps.js"></script>
+
 </head>
+
 <body>
   <nav class="animenu"> 
   <button class="animenu__toggle">
@@ -290,29 +221,29 @@
   </button>
   <ul class="animenu__nav">
     <li>
-      <a href="index.html">Home</a>
+      <a href="index.php">Home</a>
     </li>
     <li>
-      <a href="Feeder.html">Live Feeder</a>
+      <a href="Feeder.php">Live Feeder</a>
       <ul class="animenu__nav__child">
-        <li><a href="Feeder.html">Feeder Home</a></li>
-        <li><a href="FeederSettings.html">Settings</a></li>
+        <li><a href="Feeder.php">Feeder Home</a></li>
+        <li><a href="FeederSettings.php">Settings</a></li>
       </ul>
     </li> 
     <li>
-      <a href="Tracker.html">Cattle Tracker</a>
+      <a href="Tracker.php">Cattle Tracker</a>
       <ul class="animenu__nav__child">
-        <li><a href="Tracker.html">Tracker Home</a></li>
+        <li><a href="Tracker.php">Tracker Home</a></li>
         <li><a href="">Create New Geofence</a></li>
         <li><a href="TrackerSettings">Settings</a></li>
       </ul>
     </li>     
     <li>
-      <a href="Database.html">Database</a>
+      <a href="Database.php">Database</a>
       <ul class="animenu__nav__child">
         <li><a href="">Search</a></li>
-        <li><a href="Add.html">Add Herd/Cow</a></li>
-        <li><a href="Delete.html">Delete Herd/Cow</a></li>
+        <li><a href="Add.php">Add Herd/Cow</a></li>
+        <li><a href="Delete.php">Delete Herd/Cow</a></li>
       </ul>
     </li>
     <li>
@@ -323,58 +254,11 @@
     </li>                 
   </ul>
 </nav>
-   <div id="container">
-      <div class="contain">
-      <center>
-      <script>
-      var map = new GMaps({
-  			div: '.contain',
-  			lat: -12.043333,
-  			lng: -77.028333,
-		});
-      	GMaps.geolocate({
-        	  success: function(position){
-        	    map.setCenter(position.coords.latitude, position.coords.longitude);
-        	  },
-        	  error: function(error){
-        	    alert('Geolocation failed: '+error.message);
-        	  },
-        	  not_supported: function(){
-        	    alert("Your browser does not support geolocation");
-        	  }
-        	});
-      	map.setContextMenu({
-      		control: 'map',
-      		options: [{
-      			title: 'Add Geofence',
-      			name: 'add_geofence',
-      			action: function(e) {
-      				var path = 
-      					[[e.latLng.lat(),e.latLng.lng()],
-      					[e.latLng.lat()+0.001,e.latLng.lng()+0.001],
-      					[e.latLng.lat()+0.001,e.latLng.lng()]];
-      				polygon = this.drawPolygon({
-      					paths: path,
-      					draggable: true,
-      					editable: true
-      				});
-      			}
-      		}]
-      	});
-	   </script>
-	   </div>
-      <div class="containBelow">
-         &nbsp;&nbsp;&nbsp;
-         <select name="dropDownBox">
-            <option value="Option1">Geofence #1</option>
-            <option value="Option2">Geofence #2</option>
-         </select>
-         <div id="inner">
-            <button class="btn">Save New</button>
-         </div>
-      </div>
-      
-    </div>
+  
     <script src="js/index.js"></script>
+    
+    
 
 </body>
+</html>
+

@@ -1,4 +1,10 @@
+
 <!DOCTYPE html>
+<? php
+include_once 'PHP/pfunctions.php'
+echo '<p> Duhhh </p>';
+?>
+
 <html>
 <head>
     
@@ -384,10 +390,13 @@ section{
 
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   
 </head>
 <body>
-
+    <? php 
+      echo "fuck it":
+      ?>
   <nav class="animenu"> 
   <button class="animenu__toggle">
     <span class="animenu__toggle__bar"></span>
@@ -396,6 +405,7 @@ section{
   </button>
   <ul class="animenu__nav">
     <li>
+
       <a href="index.php">Home</a>
     </li>
     <li>
@@ -423,7 +433,19 @@ section{
     </li>                
   </ul>
 </nav>
+<script>
+$(document).ready(function(){
+  $.ajax({
+    type: "POST",
+    url: "/PHP/pfunctions.php",
+    cache: false,
+    data: {
+      what: "test",
+    },
 
+  })
+})
+</script>
 <div id="containerMain">
    <div id="containerFeed">
       <div class="tab">

@@ -9,7 +9,7 @@
 	function login(){
 		$host="localhost";
 		$username = "root";
-		$password = "LBell767";
+		$password = "CattleTrax11!";
 		$db_name = "cattletrax";
 
 		try{

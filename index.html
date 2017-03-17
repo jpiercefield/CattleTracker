@@ -1,11 +1,21 @@
-*, *:after, *:before {
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Home - Cattle Tracker</title>
+  
+  
+  
+      <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      *, *:after, *:before {
   box-sizing: border-box;
 }
 
 .animenu__toggle {
   display: none;
   cursor: pointer;
-  background-color: #221;
+  background-color: #134;
   border: 0;
   padding: 10px;
   height: 40px;
@@ -58,14 +68,14 @@
 }
 
 .animenu__nav {
-  background-color: #221;
+  background-color: #134;
 }
 .animenu__nav > li {
   position: relative;
   border-right: 1px solid #666633;
 }
 .animenu__nav > li > a {
-  padding: 10px 30px;
+  padding: 10px 40px;
   text-transform: uppercase;
 }
 .animenu__nav > li > a:first-child:nth-last-child(2):before {
@@ -195,6 +205,56 @@
   display: block;
 }
 
-table, th, td {
-  border: 1px solid black;
-}
+    </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+  <nav class="animenu"> 
+  <button class="animenu__toggle">
+    <span class="animenu__toggle__bar"></span>
+    <span class="animenu__toggle__bar"></span>
+    <span class="animenu__toggle__bar"></span>
+  </button>
+  <ul class="animenu__nav">
+    <li>
+      <a href="index.html">Home</a>
+    </li>
+    <li>
+      <a href="Feeder.html">Live Feeder</a>
+      <ul class="animenu__nav__child">
+        <li><a href="Feeder.html">Feeder Home</a></li>
+        <li><a href="FeederSettings.html">Settings</a></li>
+      </ul>
+    </li> 
+    <li>
+      <a href="Tracker.html">Cattle Tracker</a>
+      <ul class="animenu__nav__child">
+        <li><a href="Tracker.html">Tracker Home</a></li>
+        <li><a href="">Create New Geofence</a></li>
+        <li><a href="TrackerSettings">Settings</a></li>
+      </ul>
+    </li>     
+    <li>
+      <a href="Database.html">Database</a>
+      <ul class="animenu__nav__child">
+        <li><a href="">Search</a></li>
+        <li><a href="Add.html">Add Herd/Cow</a></li>
+        <li><a href="Delete.html">Delete Herd/Cow</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">About</a>
+    </li>
+    <li>
+      <a href="#">Contact</a>
+    </li>                 
+  </ul>
+</nav>
+  
+    <script src="js/index.js"></script>
+
+</body>
+</html>

@@ -21,6 +21,7 @@
 						var trHTML = '';
 					    //alert(json.error);//Error checking does not work.  
 					    //if(json.error === 'undefined') alert("undefined");
+					    if($.trim(json.error)) { alert(json.error);}
 						trHTML = '<table><tr><th>Tag Number</th><th>Number of Visits</th><th>Date of Last Visit</th></tr>';
 						$.each(json, function(index, element){
 					
@@ -30,14 +31,80 @@
 	
 					$("#land").html(trHTML);
 					},
-					error: function(json){
+/*					error: function(json){
 						//This does nothing.  
 						$("#land").text(json.error);
 
-					},
+					},*/
 				})
 			})
 		})	
+		$(document).ready(function(){
+			$("#7_button").click(function(e){
+				e.preventDefault();
+				$.ajax({
+					type:"POST",
+					url:"pfunctions.php",
+					dataType:"json",
+					cache:false,
+					data:{
+						type:"7",
+					},
+					success: function(json){
+						var trHTML = '';
+					    //alert(json.error);//Error checking does not work.  
+					    //if(json.error === 'undefined') alert("undefined");
+					    if($.trim(json.error)) { alert(json.error);}
+						trHTML = '<table><tr><th>Tag Number</th><th>Number of Visits</th><th>Date of Last Visit</th></tr>';
+						$.each(json, function(index, element){
+					
+							trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.num_visits + '  </td><td>' + element.last_visit_date + '  </td></tr>';
+						});
+						trHTML += "</table>";
+	
+					$("#land").html(trHTML);
+					},
+/*					error: function(json){
+						//This does nothing.  
+						$("#land").text(json.error);
+
+					},*/
+				})
+			})
+		})
+		$(document).ready(function(){
+			$("#30_button").click(function(e){
+				e.preventDefault();
+				$.ajax({
+					type:"POST",
+					url:"pfunctions.php",
+					dataType:"json",
+					cache:false,
+					data:{
+						type:"30",
+					},
+					success: function(json){
+						var trHTML = '';
+					    //alert(json.error);//Error checking does not work.  
+					    //if(json.error === 'undefined') alert("undefined");
+					    if($.trim(json.error)) { alert(json.error);}
+						trHTML = '<table><tr><th>Tag Number</th><th>Number of Visits</th><th>Date of Last Visit</th></tr>';
+						$.each(json, function(index, element){
+					
+							trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.num_visits + '  </td><td>' + element.last_visit_date + '  </td></tr>';
+						});
+						trHTML += "</table>";
+	
+					$("#land").html(trHTML);
+					},
+/*					error: function(json){
+						//This does nothing.  
+						$("#land").text(json.error);
+
+					},*/
+				})
+			})
+		})
 	</script>
 </head>
 <body>

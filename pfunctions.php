@@ -6,6 +6,8 @@
 		getData(1);
 	}else if($type == '7'){
 		getData(7);
+	}else if ($type == '30'){
+		getData(30);
 	}
 	//print($type);
 	//foo();
@@ -47,12 +49,11 @@
 			print json_encode($rows);
 		}catch(PDOException $e){
 			$arr = array('error' => $e->getMessage());
-			//print json_encode($arr);
+			print json_encode($arr);
+
 		}
 		
 	}
-	function foo(){
-		print("shitbags");
-	}
+
 ?>
 

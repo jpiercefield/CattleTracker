@@ -431,17 +431,45 @@ section{
   </ul>
 </nav>
 <script>
-$(document).ready(function(){
-  $.ajax({
+/*function getDBEntry(){
     type: "POST",
-    url: "/PHP/pfunctions.php",
+    url: "pfunctions.php",
     cache: false,
-    data: {
-      what: "test",
-    },
+    data:{
+            type:"feeder",
+          },
+          success: function(text){
+            $("#24HourTbl").html(text)
+            alert(text)
+          },
+          error: function(text){
+            $("#24HourTbl").html(text);
+          },
 
-  })
-})
+}*/
+
+    $(document).ready(function(){
+      $("#containterVideo").click(function(e){
+        e.preventDefault();
+        $.ajax({
+          type:"POST",
+          url:"pfunctions.php",
+          dataType:"text",
+          cache:false,
+          data:{
+            type:"feeder",
+          },
+          success: function(text){
+            $("#containterVideo").html("blaha")
+            alert("successful");
+          },
+          error: function(text){
+            $("#land").text("blabha");
+            alert("unsucc");
+          },
+        })
+      })
+    })
 </script>
 <div id="containerMain">
    <div id="containerFeed">

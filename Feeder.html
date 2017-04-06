@@ -24,7 +24,7 @@ include_once 'PHP/pfunctions.php'
 .animenu__toggle {
   display: none;
   cursor: pointer;
-  background-color: #134;
+  background-color: #4F2984;/*#134;*/
   border: 0;
   padding: 10px;
   height: 40px;
@@ -69,17 +69,17 @@ include_once 'PHP/pfunctions.php'
 }
 .animenu li, .animenu a {
   display: inline-block;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 /* Menu Bar Text */
 .animenu a {
-  color: #cccc99;
+  color: #FFDD00;/*#cccc99;*/
   text-decoration: none;
 }
 
 .animenu__nav {
-  background-color: #134;
+  background-color: #4F2984;/*#134;*/
   position: relative;
 }
 .animenu__nav > li {
@@ -100,13 +100,15 @@ include_once 'PHP/pfunctions.php'
   margin-top: -2px;
   right: 10px;
 }
+
 .animenu__nav > li:hover > ul {
   opacity: 1;
   visibility: visible;
   margin: 0;
 }
 .animenu__nav > li:hover > a {
-  color: #fff;
+  background-color: #FFDD00;
+  color: #4F2984;/*#fff;*/
 }
 
 .animenu__nav__child {
@@ -118,7 +120,7 @@ include_once 'PHP/pfunctions.php'
   opacity: 0;
   visibility: hidden;
   margin: 20px 0 0 0;
-  background-color: #55552b;
+  background-color: rgba(79, 41, 133, 0.75); /*#4F2984;Purple*/
   transition: margin .15s, opacity .15s;
 }
 .animenu__nav__child > li {
@@ -142,12 +144,13 @@ include_once 'PHP/pfunctions.php'
 .animenu__nav__child a {
   padding: 10px;
   width: 100%;
-  border-color: #55552b;
+  border-color: #4F2984;/*#55552b;*/
 }
 .animenu__nav__child a:hover {
-  background-color: #0186ba;
-  border-color: #0186ba;
-  color: #fff;
+  background-color: #FFDD00;/*#0186ba;*/
+  border-top: 2px solid rgba(79, 41, 133, 0.75);
+  /*border-top-color: #4F2984;*/
+  color: #4F2984;/*#fff;*/
 }
 
 @media screen and (max-width: 767px) {
@@ -164,7 +167,7 @@ include_once 'PHP/pfunctions.php'
   .animenu__nav > li {
     width: 100%;
     border-right: 0;
-    border-bottom: 1px solid #77773c;
+    border-bottom: 1px solid #FFDD00;/*#77773c;*/
   }
   .animenu__nav > li:last-child {
     border: 0;
@@ -194,7 +197,7 @@ include_once 'PHP/pfunctions.php'
 
   .animenu__nav__child {
     position: static;
-    background-color: #55552b;
+    background-color: #FFDD00; /*#55552b; */
     margin: 0;
     transition: none;
     visibility: visible;
@@ -219,15 +222,16 @@ include_once 'PHP/pfunctions.php'
 
 /* MAIN CONTAINER FOR Video AND 24 Hours, 7 Day, 30 Day Feed */
 #containerMain {
-   height: 65%;
+   height: 55%;
    margin: auto;
    left: 0;
-   position: absolute;
+   position: absolute; /*relative*/
    right: 0;
    top: 17.5%;
    bottom: 17.5%;
    width: 90%;
 }
+
 
 /***** Containers for Video Feed AND Buttons ******/
 /*---------------------------------------*/
@@ -239,7 +243,7 @@ include_once 'PHP/pfunctions.php'
    position: absolute;
    right: 0;
    top: 0;
-   width: 50%; 
+   width: 47.5%; 
    background-color: rgba(255, 216, 0, 0.4);     
 }
 
@@ -248,58 +252,77 @@ include_once 'PHP/pfunctions.php'
 
 /* Container for 24 Hours, 7 Day, 30 Day Feed */
 #containerFeed{
-   bottom: 0;
+   /*bottom: 0;*/
+  /* border-radius: 25px;*/
+   padding: 0px, 0px 0px 0px; /*Top, Right, Bottom, Left*/
+   height: 50%;
    margin: auto;
    position: absolute;
    right: 50%;
    top: 0;
-   width: 50%;   
+   width: 47.5%;  
+   background-color: #4F2984;
 }
 
 /* Style the tab */
 div.tab {
     position: relative;
+    height: 25%; /*30%;*/
+    overflow-x:auto;
     overflow: hidden;
-    background-color: #134; /* Tab Background Color */
+    /*background-color: #FFDD00;*/ /*#4F2984;/*#134;*/ /* Tab Background Color */
+    /*color: transparent*/
+    text-decoration: none;
     width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5px;
 }
 
 /* Style the links inside the tab */
 div.tab a {
-    position: relative;
+    position: relative; 
     float: left;
     width: 33.33%;
     display: block;
-    color: black;
+    color: #FFDD00; /* Base Text Color */
     text-align: center;
-    padding: 2vw; overflow: hidden;
+    padding: .85vw; overflow: hidden;
     text-decoration: none;
     transition: 0.3s;
-    font-size : 2vw;overflow: hidden;
-    border: 3px solid #cccc99; /* Tab Inside Border Color */
+    font-size : 13px;/*2.33vw;overflow: hidden;*/
+    border: 2px solid #FFDD00;/*#cccc99;*/ /* Tab Inside Border Color */
+    border-radius: 10px;
+
 }
 
 /* Change background color of links on hover */
 div.tab a:hover {
-    background-color: #55552b; /* Hover Color */
+    color:  #4F2984; /*Text Color When Hover*/
+    background-color: #FFDD00; /*#55552b;*/ /* Background Color When Hover */
+    
 }
 
 /* Create an active/current tablink class */
 div.tab a:focus, .active {
-    background-color: #55552b; /* Clicked Color */
+    /*border-right: 2px solid #4F2984;
+    border-left:  2px solid #4F2984;*/
+    background-color: #FFDD00;/*#55552b;*/ /* Clicked Background Color */
+    color: #4F2984;
 }
 
 /* Style the tab content */
 .tabcontent {
     position: relative;
     height: 100%;
-    top: 0;
+    top 0;
+    bottom:0;
     margin: 0;
     display: none;
     border-top: none;
     border-bottom: none;
-}
 
+}
 
 /***** ---END--- Containers for Video Feed AND Buttons ******/
 
@@ -326,46 +349,58 @@ html {
 
 /* TEST TABLEEEEE *************/
 h1{
-  font-size: 30px;
-  color: #55552b;
+  font-size: 20px;
+  color: #FFDD00;/*#55552b;*/
+  background-color: #4F2984;
+  border-bottom: 2px solid #FFDD00;
+  border-top: 2px solid #FFDD00;
+  /*padding-bottom: 50%;*/
   text-transform: uppercase;
   font-weight: 300;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
 }
 table{
   width:100%;
   table-layout: fixed;
+  background-color: #4F2984;
 }
+
 .tbl-header{
-  background-color: rgbargba(17, 51, 68, 1);
+  width:100%;
+  background-color: #4F2984;/*rgbargba(17, 51, 68, 1);*/
  }
+ 
 .tbl-content{
-  height:300px;
+  height: 250px; /*300px;*/
   overflow-x:auto;
   margin-top: 0px;
-  border: 5px solid rgba(17, 51, 68, 1);
-  background-color: rgba(17, 51, 68, 1);
+  border-left: 2px solid #FFDD00;/*rgba(17, 51, 68, 1);*/
+  border-right: 2px solid #FFDD00;
+  border-bottom: 2px solid #FFDD00;
+  background-color: #4F2984;/*rgba(17, 51, 68, 1);*/
 }
 th{
-  padding: 20px 15px;
-  text-align: left;
+  padding: 25px, 0px, 25px, 0px; /*Top, Right, Bottom, Left*/
+  text-align: center;
   font-weight: 500;
   font-size: 14px;
-  color: #000;
+  color: #FFDD00;
   text-transform: uppercase;
   text-decoration: underline;
-  background-color: rgba(17, 51, 68, 1);
-  border-bottom: solid 2px rgba(255, 216, 0, 0.4);
+  background-color: #4F2984;/*rgba(17, 51, 68, 1);*/
+  border-bottom: solid 2px #FFDD00;/*rgba(255, 216, 0, 0.4);*/
 }
 td{
-  padding: 15px;
-  text-align: left;
-  vertical-align:middle;
+  padding: 5px;
+  text-align: center;/*left;*/
+  vertical-align: center;
   font-weight: bold;
   font-size: 16px;
-  color: #000;
-  border-bottom: solid 2px rgba(255, 216, 0, 0.4);
+  color: #FFDD00;
+  /*background-color: #4f2985;*/
+  border-bottom: solid 2px #FFDD00;/*rgba(255, 216, 0, 0.4);*/
+  border-right: solid 1px #FFDD00;
 }
 
 /* demo styles */
@@ -475,11 +510,11 @@ section{
    <div id="containerFeed">
       <div class="tab">
          <a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 
-                  '24 Hours')" id="defaultOpen"><font color="cccc99">24 Hours</font></a>
+                  '24 Hours')" id="defaultOpen">24 Hours</a>
          <a href="javascript:void(0)" class="tablinks" onclick="openCity(event,
-                  '7 Days')"><font color="cccc99">7 Days</font></a>
+                  '7 Days')">7 Days</a>
          <a href="javascript:void(0)" class="tablinks" onclick="openCity(event,
-                  '30 Days')"><font color="cccc99">30 Days</font></a>
+                  '30 Days')">30 Days</a>
       </div>
 
       <div id="24 Hours" class="tabcontent">
@@ -497,14 +532,14 @@ section{
             <div class="tbl-content" id="tbl24-content">
                <table cellpadding="0" cellspacing="0" border="0">
                   <tbody>
-                     <!--<tr>
+                     <tr>
                         <td>135</td>
                         <td>8:23 P.M.</td>
                      </tr>
                      <tr>
                         <td>456</td>
                         <td>9:42 P.M.</td>
-                     </tr>*/ -->
+                     </tr>
                   </tbody>
                </table>
             </div>
@@ -668,6 +703,14 @@ $(document).ready(function(){
         },
     })
 })
+</script>
+
+<script>
+$('a').on('click touchend', function(e) {
+    var el = $(this);
+    var link = el.attr('href');
+    window.location = link;
+});
 </script>
 </body>
 

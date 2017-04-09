@@ -3,7 +3,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Home - Cattle Tracker</title>
+  <title>Database</title>
   
   
   
@@ -16,7 +16,7 @@
 .animenu__toggle {
   display: none;
   cursor: pointer;
-  background-color: #134;
+  background-color: #4F2984;/*#134;*/
   border: 0;
   padding: 10px;
   height: 40px;
@@ -61,15 +61,18 @@
 }
 .animenu li, .animenu a {
   display: inline-block;
-  font-size: 15px;
+  font-size: 16px;
 }
+
+/* Menu Bar Text */
 .animenu a {
-  color: #cccc99;
+  color: #FFDD00;/*#cccc99;*/
   text-decoration: none;
 }
 
 .animenu__nav {
-  background-color: #134;
+  background-color: #4F2984;/*#134;*/
+  position: relative;
 }
 .animenu__nav > li {
   position: relative;
@@ -89,13 +92,15 @@
   margin-top: -2px;
   right: 10px;
 }
+
 .animenu__nav > li:hover > ul {
   opacity: 1;
   visibility: visible;
   margin: 0;
 }
 .animenu__nav > li:hover > a {
-  color: #fff;
+  background-color: #FFDD00;
+  color: #4F2984;/*#fff;*/
 }
 
 .animenu__nav__child {
@@ -107,7 +112,7 @@
   opacity: 0;
   visibility: hidden;
   margin: 20px 0 0 0;
-  background-color: #55552b;
+  background-color: rgba(79, 41, 133, 0.75); /*#4F2984;Purple*/
   transition: margin .15s, opacity .15s;
 }
 .animenu__nav__child > li {
@@ -131,23 +136,22 @@
 .animenu__nav__child a {
   padding: 10px;
   width: 100%;
-  border-color: #55552b;
+  border-color: #4F2984;/*#55552b;*/
 }
 .animenu__nav__child a:hover {
-  background-color: #0186ba;
-  border-color: #0186ba;
-  color: #fff;
+  background-color: #FFDD00;/*#0186ba;*/
+  border-top: 2px solid rgba(79, 41, 133, 0.75);
+  /*border-top-color: #4F2984;*/
+  color: #4F2984;/*#fff;*/
 }
 
 @media screen and (max-width: 767px) {
   .animenu__toggle {
     display: inline-block;
   }
-
-  .animenu__nav,
-  .animenu__nav__child {
-    display: none;
-  }
+  .animenu__nav, .animenu__nav__child {
+      display: none;
+   }
 
   .animenu__nav {
     margin: 10px 0;
@@ -155,7 +159,7 @@
   .animenu__nav > li {
     width: 100%;
     border-right: 0;
-    border-bottom: 1px solid #77773c;
+    border-bottom: 1px solid #FFDD00;/*#77773c;*/
   }
   .animenu__nav > li:last-child {
     border: 0;
@@ -185,7 +189,7 @@
 
   .animenu__nav__child {
     position: static;
-    background-color: #55552b;
+    background-color: #FFDD00; 
     margin: 0;
     transition: none;
     visibility: visible;
@@ -205,7 +209,42 @@
 .animenu__nav--open .animenu__nav__child {
   display: block;
 }
+/* END TOOLBAR */
 
+/* START TABLE AND SEARCH */
+#myInput {
+    background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+#myTable {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 18px; /* Increase font-size */
+}
+
+#myTable th, #myTable td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+}
+
+#myTable tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #ddd; 
+}
+
+#myTable tr.header, #myTable tr:hover {
+    /* Add a grey background color to the table header and on hover */
+    background-color: #f1f1f1;
+}
+/* END TABLE AND SEARCH */
     </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
@@ -245,20 +284,101 @@
         <li><a href="Add.php">Add Herd/Cow</a></li>
         <li><a href="Delete.php">Delete Herd/Cow</a></li>
       </ul>
-    </li>
-    <li>
-      <a href="#">About</a>
-    </li>
-    <li>
-      <a href="#">Contact</a>
-    </li>                 
+    </li>                
   </ul>
 </nav>
   
     <script src="js/index.js"></script>
     
     
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Tag ID..">
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:20%;">Tag ID</th>
+    <th style="width:20%;">Cow ID</th>
+    <th style="width:10%;">Sex</th>
+    <th style="width:10%;">Weight</th>
+    <th style="width:10%;">Age</th>
+    <th style="width:10%;">Herd</th>
+    <th style="width:10%;">Pasture</th>
+    <th style="width:10%;">Delete</th>
+  </tr>
+  <tr>
+    <td>1330182</td>
+    <td>100001</td>
+    <td>F</td>
+    <td>1650</td>
+    <td>5</td>
+    <td>7</td>
+    <td>2</td>
+    <td><button onclick="deleteRow(this)">Delete</button></td>
+  </tr>
+  <tr>
+    <td>1232839</td>
+    <td>100002</td>
+    <td>F</td>
+    <td>1820</td>
+    <td>4</td>
+    <td>7</td>
+    <td>2</td>
+    <td><button onclick="deleteRow(this)">Delete</button></td>
+  </tr>
+  <tr>
+    <td>1736829</td>
+    <td>100005</td>
+    <td>M</td>
+    <td>1370</td>
+    <td>3</td>
+    <td>9</td>
+    <td>1</td>
+    <td><button onclick="deleteRow(this)">Delete</button></td>
+  </tr>
+  <tr>
+    <td>13301823</td>
+    <td>100006</td>
+    <td>F</td>
+    <td>1000</td>
+    <td>5</td>
+    <td>8</td>
+    <td>1</td>
+    <td><button onclick="deleteRow(this)">Delete</button></td>
+  </tr>
+</table>    
+    
 
 </body>
+
+<script>
+function myFunction() {
+  // Declare variables 
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>
+
+<script>
+function deleteRow(t)
+{
+    var row = t.parentNode.parentNode;
+    document.getElementById("myTable").deleteRow(row.rowIndex);
+    console.log(row);
+}
+</script>
 </html>
 

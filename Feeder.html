@@ -431,17 +431,45 @@ section{
   </ul>
 </nav>
 <script>
-$(document).ready(function(){
-  $.ajax({
+/*function getDBEntry(){
     type: "POST",
-    url: "/PHP/pfunctions.php",
+    url: "pfunctions.php",
     cache: false,
-    data: {
-      what: "test",
-    },
+    data:{
+            type:"feeder",
+          },
+          success: function(text){
+            $("#24HourTbl").html(text)
+            alert(text)
+          },
+          error: function(text){
+            $("#24HourTbl").html(text);
+          },
 
-  })
-})
+}*/
+
+    $(document).ready(function(){
+      $("#containterVideo").click(function(e){
+        e.preventDefault();
+        $.ajax({
+          type:"POST",
+          url:"pfunctions.php",
+          dataType:"text",
+          cache:false,
+          data:{
+            type:"feeder",
+          },
+          success: function(text){
+            $("#containterVideo").html("blaha")
+            alert("successful");
+          },
+          error: function(text){
+            $("#land").text("blabha");
+            alert("unsucc");
+          },
+        })
+      })
+    })
 </script>
 <div id="containerMain">
    <div id="containerFeed">
@@ -466,17 +494,17 @@ $(document).ready(function(){
                   </thead>
                </table>
             </div>
-            <div class="tbl-content">
+            <div class="tbl-content" id="tbl24-content">
                <table cellpadding="0" cellspacing="0" border="0">
                   <tbody>
-                     <tr>
+                     <!--<tr>
                         <td>135</td>
                         <td>8:23 P.M.</td>
                      </tr>
                      <tr>
                         <td>456</td>
                         <td>9:42 P.M.</td>
-                     </tr>
+                     </tr>*/ -->
                   </tbody>
                </table>
             </div>
@@ -494,23 +522,16 @@ $(document).ready(function(){
                   </thead>
                </table>
             </div>
-            <div class="tbl-content">
+            <div class="tbl-content" id="tbl7-content">
                <table cellpadding="0" cellspacing="0" border="0">
                   <tbody>
-                     <tr>
-                        <td>222</td>
-                        <td>7:13 P.M.</td>
-                     </tr>
-                     <tr>
-                        <td>333</td>
-                        <td>10:43 P.M.</td>
-                     </tr>
+
                   </tbody>
                </table>
             </div>
          </div>   
                 
-      <div id="30 Days" class="tabcontent">
+      <div id="30 Days" class="tabcontent" id="tabl30-content">
          <h1>30 Day Feed</h1>
             <div class="tbl-header">
                <table cellpadding="0" cellspacing="0" border="0">
@@ -525,14 +546,7 @@ $(document).ready(function(){
             <div class="tbl-content">
                <table cellpadding="0" cellspacing="0" border="0">
                   <tbody>
-                     <tr>
-                        <td>444</td>
-                        <td>1:23 A.M.</td>
-                     </tr>
-                     <tr>
-                        <td>555</td>
-                        <td>3:41 P.M.</td>
-                     </tr>
+
                   </tbody>
                </table>
             </div>
@@ -570,5 +584,91 @@ $(window).on("load resize ", function() {
   $('.tbl-header').css({'padding-right':scrollWidth});
 }).resize();
 </script>
+
+<script>
+$(document).ready(function(){
+
+    jQuery.support.cors = true;
+
+    $.ajax(
+    {
+        type: "POST",
+        url: "pfunctions.php",
+        dataType: "json",
+        cache: false,
+        data:{
+						type:"7",
+		  },
+        success: function (json) {
+            
+         var trHTML = '';
+           if($.trim(json.error)) { alert(json.error);}           
+         $.each(json, function(index, element){
+            trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.last_visit_date + '  </td></tr>';
+        });
+               
+        $('#tbl7-content').append(trHTML);
+        
+        },
+    })
+})
+</script>
+<script>
+$(document).ready(function(){
+
+    jQuery.support.cors = true;
+
+    $.ajax(
+    {
+        type: "POST",
+        url: "pfunctions.php",
+        dataType: "json",
+        cache: false,
+        data:{
+						type:"30",
+		  },
+        success: function (json) {
+            
+         var trHTML = '';
+           if($.trim(json.error)) { alert(json.error);}           
+         $.each(json, function(index, element){
+            trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.last_visit_date + '  </td></tr>';
+        });
+               
+        $('#tbl30-content').append(trHTML);
+        
+        },
+    })
+})
+</script>
+<script>
+$(document).ready(function(){
+
+    jQuery.support.cors = true;
+
+    $.ajax(
+    {
+        type: "POST",
+        url: "pfunctions.php",
+        dataType: "json",
+        cache: false,
+        data:{
+						type:"24",
+		  },
+        success: function (json) {
+            
+         var trHTML = '';
+           if($.trim(json.error)) { alert(json.error);}           
+         $.each(json, function(index, element){
+            trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.last_visit_date + '  </td></tr>';
+        });
+               
+        $('#tbl24-content').append(trHTML);
+        
+        },
+    })
+})
+</script>
 </body>
+
 </html>

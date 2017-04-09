@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Home - Cattle Tracker</title>
+  <title>Home</title>
   
-  
-  
-      <style>
+<style>
       /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
       *, *:after, *:before {
   box-sizing: border-box;
@@ -15,7 +13,7 @@
 .animenu__toggle {
   display: none;
   cursor: pointer;
-  background-color: #134;
+  background-color: #4F2984;/*#134;*/
   border: 0;
   padding: 10px;
   height: 40px;
@@ -60,15 +58,18 @@
 }
 .animenu li, .animenu a {
   display: inline-block;
-  font-size: 15px;
+  font-size: 16px;
 }
+
+/* Menu Bar Text */
 .animenu a {
-  color: #cccc99;
+  color: #FFDD00;/*#cccc99;*/
   text-decoration: none;
 }
 
 .animenu__nav {
-  background-color: #134;
+  background-color: #4F2984;/*#134;*/
+  position: relative;
 }
 .animenu__nav > li {
   position: relative;
@@ -88,13 +89,15 @@
   margin-top: -2px;
   right: 10px;
 }
+
 .animenu__nav > li:hover > ul {
   opacity: 1;
   visibility: visible;
   margin: 0;
 }
 .animenu__nav > li:hover > a {
-  color: #fff;
+  background-color: #FFDD00;
+  color: #4F2984;/*#fff;*/
 }
 
 .animenu__nav__child {
@@ -106,7 +109,7 @@
   opacity: 0;
   visibility: hidden;
   margin: 20px 0 0 0;
-  background-color: #55552b;
+  background-color: rgba(79, 41, 133, 0.75); /*#4F2984;Purple*/
   transition: margin .15s, opacity .15s;
 }
 .animenu__nav__child > li {
@@ -130,23 +133,22 @@
 .animenu__nav__child a {
   padding: 10px;
   width: 100%;
-  border-color: #55552b;
+  border-color: #4F2984;/*#55552b;*/
 }
 .animenu__nav__child a:hover {
-  background-color: #0186ba;
-  border-color: #0186ba;
-  color: #fff;
+  background-color: #FFDD00;/*#0186ba;*/
+  border-top: 2px solid rgba(79, 41, 133, 0.75);
+  /*border-top-color: #4F2984;*/
+  color: #4F2984;/*#fff;*/
 }
 
 @media screen and (max-width: 767px) {
   .animenu__toggle {
     display: inline-block;
   }
-
-  .animenu__nav,
-  .animenu__nav__child {
-    display: none;
-  }
+  .animenu__nav, .animenu__nav__child {
+      display: none;
+   }
 
   .animenu__nav {
     margin: 10px 0;
@@ -154,7 +156,7 @@
   .animenu__nav > li {
     width: 100%;
     border-right: 0;
-    border-bottom: 1px solid #77773c;
+    border-bottom: 1px solid #FFDD00;/*#77773c;*/
   }
   .animenu__nav > li:last-child {
     border: 0;
@@ -184,7 +186,7 @@
 
   .animenu__nav__child {
     position: static;
-    background-color: #55552b;
+    background-color: #FFDD00; 
     margin: 0;
     transition: none;
     visibility: visible;
@@ -204,6 +206,7 @@
 .animenu__nav--open .animenu__nav__child {
   display: block;
 }
+/* END TOOLBAR */
 
     </style>
 
@@ -226,7 +229,7 @@
       <a href="Feeder.html">Live Feeder</a>
       <ul class="animenu__nav__child">
         <li><a href="Feeder.html">Feeder Home</a></li>
-        <li><a href="FeederSettings.html">Settings</a></li>
+        <li><a href="FeederSettings.php">Settings</a></li>
       </ul>
     </li> 
     <li>
@@ -240,21 +243,18 @@
     <li>
       <a href="Database.html">Database</a>
       <ul class="animenu__nav__child">
-        <li><a href="">Search</a></li>
-        <li><a href="Add.html">Add Herd/Cow</a></li>
-        <li><a href="Delete.html">Delete Herd/Cow</a></li>
+        <li><a href="Database.html">Search</a></li>
+        <li><a href="Add.html">Add Cow</a></li>
+        <li><a href="Edit.html">Edit Cow</a></li>
       </ul>
-    </li>
-    <li>
-      <a href="#">About</a>
-    </li>
-    <li>
-      <a href="#">Contact</a>
-    </li>                 
+    </li>                
   </ul>
 </nav>
   
-    <script src="js/index.js"></script>
+<script src="js/index.js"></script>
+    
+
+    
 
 </body>
 </html>

@@ -8,12 +8,14 @@
 		getData(7);
 	}else if ($type == '30'){
 		getData(30);
+	}else if($type == 'db_search'){
+		search();
 	}
-	//print($type);
-	//foo();
-	//get24();
+
 
 	function login(){
+		//$host="149.149.150.136";
+		//$username = "pjtinker";
 		$host="localhost";
 		$username = "root";
 		$password = "CattleTrax11!";
@@ -34,17 +36,9 @@
 			$stmt = $db->prepare('SELECT * FROM feeder where DATEDIFF(NOW(), last_visit_date) between 0 and :value');
 			$stmt->bindParam(':value', $value, PDO::PARAM_INT);
 			$stmt->execute();
-			//$header = $stmt->fetch(PDO::FETCH_ASSOC);
-/*			Don't believe I need this if we're parsing in jquery
-			foreach ($header as $field => $value){
-				echo json_encode($field);
-			}*/
-			//$stmt = $db->query('SELECT * FROM feeder where DATEDIFF(NOW(), last_visit_date) between 0 and 30');
 			$rows = array();
 			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-				$rows[] = $row;
-				//echo json_encode(echo $row['ref_id'] ." ". $row['num_visits'] . $row['last_visit_date']."\n");
-				
+				$rows[] = $row;			
 			}
 			print json_encode($rows);
 		}catch(PDOException $e){
@@ -53,6 +47,28 @@
 
 		}
 		
+	}
+	function search(){
+		$db = login();
+		try{
+			$stmt = $db->prepare('SELECT vit.* FROM vitals as vit INNER JOIN animal as ani on vit.animal_id = ani.animal_id WHERE ani.tag_id LIKE :tag');
+			if($_POST['tag_id'] > 0){
+				$tag = "%".$_POST['tag_id']."%";
+			}else{
+				$tag = "%".$_POST['animal_id']."%";
+			}
+			$stmt->bindParam(':tag', $tag);
+			$stmt->execute();
+			$rows = array();
+			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+				$rows[] = $row;
+			}
+			print json_encode($rows);
+		}catch(PDOException $e){
+			$arr = array('error' => $e->getMessage());
+			print json_encode($arr);
+		}
+
 	}
 
 ?>

@@ -21,7 +21,7 @@
 						var trHTML = '';
 					    //alert(json.error);//Error checking does not work.  
 					    //if(json.error === 'undefined') alert("undefined");
-					    if($.trim(json.error)) { alert(json.error);}
+					    if($.trim(json.error)) { alert(json.error); return;}
 						trHTML = '<table><tr><th>Tag Number</th><th>Number of Visits</th><th>Date of Last Visit</th></tr>';
 						$.each(json, function(index, element){
 					
@@ -52,9 +52,10 @@
 					},
 					success: function(json){
 						var trHTML = '';
-					    //alert(json.error);//Error checking does not work.  
-					    //if(json.error === 'undefined') alert("undefined");
-					    if($.trim(json.error)) { alert(json.error);}
+					    if($.trim(json.error)) { 
+					    	alert(json.error);
+					    	return;
+					    }
 						trHTML = '<table><tr><th>Tag Number</th><th>Number of Visits</th><th>Date of Last Visit</th></tr>';
 						$.each(json, function(index, element){
 					
@@ -85,9 +86,7 @@
 					},
 					success: function(json){
 						var trHTML = '';
-					    //alert(json.error);//Error checking does not work.  
-					    //if(json.error === 'undefined') alert("undefined");
-					    if($.trim(json.error)) { alert(json.error);}
+					    if($.trim(json.error)) { alert(json.error); return;}
 						trHTML = '<table><tr><th>Tag Number</th><th>Number of Visits</th><th>Date of Last Visit</th></tr>';
 						$.each(json, function(index, element){
 					
@@ -96,6 +95,7 @@
 						trHTML += "</table>";
 	
 					$("#land").html(trHTML);
+					//$("#land2").html("this is land 2");
 					},
 /*					error: function(json){
 						//This does nothing.  
@@ -106,6 +106,39 @@
 			})
 		})
 	</script>
+	<script>
+	$(document).ready(function(){
+		$("#db_search_button").click(function(e){
+			e.preventDefault();
+			$.ajax({
+				type:"POST",
+				url:"pfunctions.php",
+				dataType:"json",
+				cache:false,
+				data:{
+					tag_id: $("#tag_id").val(),
+					animal_id: $("#animal_id").val(),
+					type: "db_search",
+				},
+			success: function(json){
+				if($.trim(json.error)) { alert(json.error); return;}
+				trHTML = '<table><tr><th>Tag ID</th><th>Animal ID</th><th>Age</th><th>Weight</th><th>Sire ID</th><th>Dame ID</th></tr>';
+				$.each(json, function(index, element){
+					trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' + + element.age + '</td><td>' + element.weight + '</td><td>' + element.sire_id + '</td><td>' + element.herd_id +'</td></tr>';
+				});
+				trHTML += '</table>';
+				//alert(json[0].weight);
+				$("#land").html(trHTML);
+			},
+			});
+		});
+	});
+	</script>
+<script>
+	$("#db_table").click(function(){
+		alert("you clicked me");
+	});
+</script>
 </head>
 <body>
 
@@ -113,8 +146,17 @@
 <button type = "submit" id="24_button">24 Hours</button>
 
 <button type = "submit" id="7_button">7 Days</button>
-<button type = "submti" id="30_button">30 Days</button>
+<button type = "submit" id="30_button">30 Days</button>
 <div class = "Landing" id="land"</div>
+</div>
+<div>
+<form id="db_search" method="POST">
+Tag ID: <input type="numeric" id="tag_id" autofocus><br></input>
+Animal ID: <input type="numeric" id="animal_id"><br></input>
+<button type="submit" id="db_search_button">Search</button>
+<button type="submit" id="add_cow">Add Cow</button>
+<button type="submit" id="remove_cow">Remove Cow</button>
+</form>
 </div>
 </body>
 </html>

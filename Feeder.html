@@ -12,7 +12,6 @@ include_once 'PHP/pfunctions.php'
   <title>Feeder - Cattle Tracker</title>
   
   
-  
 <style type="text/css">
 
 /***************-----START TOOLBAR-----***************/
@@ -596,6 +595,8 @@ section{
 </div>
 
       <script src="js/index.js"></script>
+      <script src="js/jsfunctions.js"></script>
+
 <script>
 function openCity(evt, cityName) {
     var i, tabcontent, tablinks;
@@ -638,7 +639,7 @@ $(document).ready(function(){
         success: function (json) {
             
          var trHTML = '';
-           if($.trim(json.error)) { alert(json.error);}           
+           if($.trim(json.error)) { alert(json.error);return;}           
          $.each(json, function(index, element){
             trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.last_visit_date + '  </td></tr>';
         });
@@ -666,7 +667,7 @@ $(document).ready(function(){
         success: function (json) {
             
          var trHTML = '';
-           if($.trim(json.error)) { alert(json.error);}           
+           if($.trim(json.error)) { alert(json.error); return;}           
          $.each(json, function(index, element){
             trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.last_visit_date + '  </td></tr>';
         });
@@ -694,7 +695,7 @@ $(document).ready(function(){
         success: function (json) {
             
          var trHTML = '';
-           if($.trim(json.error)) { alert(json.error);}           
+           if($.trim(json.error)) { alert(json.error); return;}           
          $.each(json, function(index, element){
             trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.last_visit_date + '  </td></tr>';
         });

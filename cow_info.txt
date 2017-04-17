@@ -1,0 +1,76 @@
+For the students:
+Staring below is a listing of information/ data to be warehoused for individual cattle. There will be a “herd health” section, and the logic should be that usually when I vaccinate one, I vaccinate all in the herd. So…. Some type system/ logic that says  when I vaccinate, rather than entering individually, I enter for groups: i.e., vaccinated all “cows today with BVD, PI3, etc.,”
+This is why we need interactive birthdates and definitions; so I just input all “cows” and all “calves” were vaccinated, and the program decides which group they belong to. So, your software will need to calculate ages; calves will be 1 – 365 days of age, then they are 12 – 24 months of age and are either bulls, steers, or heifers; and 24 – 36 mo are first calf-heifers, and 3 years+ are either cows or bulls. Each of these groups are managed and treated/ vaccinated differently.
+ 
+So the list:
+1)      Name of Farm
+2)      City, State
+3)      Farm Zip code
+4)      Date of birth of calves
+5)      Calf dam and sire
+6)      Calf number/ ID
+7)      Calf location/ pasture number
+8)      Calf management at birth
+a.       Sex
+b.      Vaccines administered
+c.       Castrated
+d.      Ear tag
+e.      Birth weight
+f.        Color/ description
+g.       Notes on any issues with calf/cow relations
+h.      Date weaned
+i.         Weaning weight
+j.        Weaning weight “index” for this herd
+9)      Cow condition at calving
+a.       Assigned “herd number”
+b.      Calving ease/ any problems
+c.       Birthweight
+d.      Cow Body Condition Score at Calving
+e.      Notes on any issues with cow/calf relations (is the cow a good “mother”)
+f.        Cow physical condition at birth
+g.       Pasture # at birth
+10)   “Herd Number” for each group on the farm
+a.       Number of cows in herd
+b.      Bulls
+                                                               i.      When were bulls turned into the herd
+                                                             ii.      Bull I.D.
+                                                            iii.      When were bulls removed from the herd
+c.       Cows added to the herd, I.D.
+                                                               i.      Where did the cow or bull come from? (purchased, transferred from other herd on-farm, etc.)
+d.      Cows removed from the herd
+e.      Reason for removing cows from herd (open, low weaning weight, old age, physical issue, other)
+11)   Pasture Management Record
+a.       Pasture number for where herd is located
+b.      Each time cattle are rotated, what is the new pasture #
+c.       Nutrition on pasture:
+                                                               i.      When pastures received fertilizers
+                                                             ii.      What fertilizer was applied
+                                                            iii.      Weed control program
+1.       Chemical weed control product
+2.       Chemical rate applied
+3.       Problem weeds identified
+4.       Date applied
+                                                           iv.      Pasture management practices
+1.       Date pasture was “shredded” for weed control
+2.       Primary grasses/ clovers in pasture
+3.       Grasses planted: date and seeding rates
+4.       Clovers/ legumes planted: dates and seeding rates
+                                                             v.      Hay production
+1.       Date of hay harvests
+2.       Bales of hay produced each cutting
+3.       Weight of your “average” hay bale
+12)   Herd Health Record:
+a.       Date of health treatment
+b.      Herd Health treatment applied (the program needs to define this animal, based on its date of birth) 
+                                                               i.      A “calf” is any animal 1 – 365 days of age.
+                                                             ii.      A “weaned” calf has been weaned, but is still defined as an age in days, less than 12 months of age
+                                                            iii.      A “heifer,” “steer,” or “bull calf” is an animal greater than 365 days of age, but less than 24 months; and their “age” will be defined in “months.”
+                                                           iv.      Starting at the age of 24 months, a “bull” is defined by years; a “first-calve heifer” is 24 – 36 months of age
+                                                             v.      A “cow” is 36 months/ 3 years of age and older, and her age is listed as “years.”
+c.       Individual herd health treatments
+                                                               i.      Animal ID
+                                                             ii.      Date
+                                                            iii.      Description of health issue
+                                                           iv.      Disposition of health issue
+                                                             v.      Did animal die?
+                                                           vi.      Will animal be culled due to this problem at a later date?

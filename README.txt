@@ -53,6 +53,7 @@ RPI:
 -Format log file.  Should we create our own error messages/codes?
 -Pi will lose data if it has lost signal, read tags, then lost power before reconnecting to the DB.  How can we correct this?
 -Added pool_recycle=3600 to SQLAlchemy engine.  This will refresh any connection to the DB after one hour.  Check this when testing the Pi.
+-
 
 
 HTML:

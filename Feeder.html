@@ -531,7 +531,7 @@ section{
             <div class="tbl-content" id="tbl24-content">
                <table cellpadding="0" cellspacing="0" border="0">
                   <tbody>
-                     
+       
                   </tbody>
                </table>
             </div>
@@ -631,12 +631,12 @@ $(document).ready(function(){
 		  },
         success: function (json) {
             
-         var trHTML = '';
+         var trHTML = '<table cellpadding="0" cellspacing="0" border="0"><tbody>';
            if($.trim(json.error)) { alert(json.error);return;}           
          $.each(json, function(index, element){
             trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.last_visit_date + '  </td></tr>';
         });
-               
+         trHTML += '</tbody></table>';        
         $('#tbl7-content').append(trHTML);
         
         },
@@ -659,12 +659,12 @@ $(document).ready(function(){
 		  },
         success: function (json) {
             
-         var trHTML = '';
+         var trHTML = '<table cellpadding="0" cellspacing="0" border="0"><tbody>';
            if($.trim(json.error)) { alert(json.error); return;}           
          $.each(json, function(index, element){
             trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.last_visit_date + '  </td></tr>';
         });
-               
+         trHTML += '</tbody></table>';    
         $('#tbl30-content').append(trHTML);
         
         },
@@ -687,12 +687,12 @@ $(document).ready(function(){
 		  },
         success: function (json) {
             
-         var trHTML = '';
+         var trHTML = '<table cellpadding="0" cellspacing="0" border="0"><tbody>';
            if($.trim(json.error)) { alert(json.error); return;}           
          $.each(json, function(index, element){
             trHTML += '<tr><td>' + element.ref_id + '  </td><td>' + element.last_visit_date + '  </td></tr>';
         });
-               
+         trHTML += '</tbody></table>';       
         $('#tbl24-content').append(trHTML);
         
         },

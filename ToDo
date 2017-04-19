@@ -1,0 +1,13 @@
+Fields for Adding animal:
+Cow:  *cow_id, *tag_id, *rfid, *pregnant checkbox that activates a due date field, *first year checkbox, DOB, herd, pasture
+Calf:  *calf id, *tag, *rfid, *sex, *birth weight, *current weight, herd, pasture
+Bull:  *bull id, *tag, *rfid, *castrated, herd, pasture, bull index, number sired
+
+Fields for Editing animal:
+Cow:  tag, rfid, pregnant, medical condition, herd, pasture, calving condition, calving ease, calf bonding, weight
+
+Calf:  tag, rfid, weight, herd, pasture, wean weight, body index, ween index
+
+Bull:  tag, rfid, weight, castrated, number sired, bull index
+
+

@@ -208,6 +208,37 @@
 }
 /* END TOOLBAR */
 
+#Main {
+   height: 55%;
+   margin: auto;
+   left: 0;
+   position: absolute; /*relative*/
+   right: 0;
+   top: 17.5%;
+   bottom: 17.5%;
+   width: 90%;
+}
+
+#oldInfoHere {
+   height: 50%;
+   width: 90%;
+   margin: auto;
+   position: relevant: 
+}
+
+th{
+  padding: 25px, 0px, 25px, 0px; /*Top, Right, Bottom, Left*/
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  color: #FFDD00;
+  text-transform: uppercase;
+  /*text-decoration: underline;*/
+  background-color: #4F2984;/*rgba(17, 51, 68, 1);*/
+  /*border: solid 1px #4F2984;/*rgba(255, 216, 0, 0.4);*/
+}
+
+
     </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
@@ -253,8 +284,88 @@
   
 <script src="js/index.js"></script>
     
-
-    
-
+<div id="Main">
+   <center><h1>Enter Tag ID<h1> 
+   <form id="form" onsubmit="return false;">
+   <input style="position:relative; " type="text" id="userInput" />
+   <input style="position:relative;" type="submit" onclick="SaveVariable();" />
+   </form>
+   </center>
+   <div id="oldInfoHere"  style="display:none;"> 
+      <table id="cowTableCurrent">
+	   <tbody>
+		   <tr>
+			   <th>RFID ID</th>
+			   <th>Tag ID</th>
+			   <th>Cow ID</th>
+			   <th>Weight</th>
+			   <th>Pregnant</th>
+			   <th>Medical Condition</th>
+			   <th>Herd</th>
+			   <th>Pasture</th>
+			   <th>Calving Condition</th>
+			   <th>Calving Ease</th>
+			   <th>Calf Bonding</th>
+		   </tr>
+		   <tr>
+		      <h1>Current Info </h1>
+			   <th>8898899 </th>
+			   <th>342423</th>
+			   <th>34234</th>
+			   <th>500</th>
+			   <th>N</th>
+			   <th>N/A</th>
+			   <th>1</th>
+			   <th>2</th>
+			   <th>Y</th>
+			   <th>Easy</th>
+			   <th>Yes</th>
+		   </tr>
+	   </tbody>
+      </table>
+      
+      <table id="cowTableNew">
+	   <tbody>
+		   <tr>
+			   <th>RFID ID</th>
+			   <th>Tag ID</th>
+			   <th>Cow ID</th>
+			   <th>Weight</th>
+			   <th>Pregnant</th>
+			   <th>Medical Condition</th>
+			   <th>Herd</th>
+			   <th>Pasture</th>
+			   <th>Calving Condition</th>
+			   <th>Calving Ease</th>
+			   <th>Calf Bonding</th>
+		   </tr>
+		   <tr>
+		      <h1>New Info </h1>
+			   <th><textarea name="RFID_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+			   <th><textarea name="TagID_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+			   <th><textarea name="CowID_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+			   <th><textarea name="Wight_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+			   <th><textarea name="Pregnant_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+			   <th><textarea name="Medical_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+			   <th><textarea name="Herd_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+			   <th><textarea name="Pasture_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+			   <th><textarea name="CalvingCond_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+			   <th><textarea name="CalvignEase_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+			   <th><textarea name="CalfBond_Input" placeholder="Enter here" cols="10" rows="1" required></textarea></th>
+		   </tr>
+	   </tbody>
+      </table>
+      <br>
+      <center><input type="submit" style="height: 25px; width: 100px" value="Submit" id="2ndSubmit" name="mySubmit" onclick=""></center>
+   </div>
+</div>
 </body>
 </html>
+
+<script>
+function SaveVariable() {
+    var input = document.getElementById("userInput").value;
+    alert(input);
+    document.getElementById('oldInfoHere').style.display = "block";
+}
+</script>

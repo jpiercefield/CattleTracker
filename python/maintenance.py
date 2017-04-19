@@ -49,6 +49,7 @@ class t1(Base):
 	cow_id = Column(Integer,primary_key=True)
 	tag_id = Column(Integer)
 	due_date = Column(DateTime)
+	num = Column(Integer)
 	future = Column(DateTime)
 
 class t2(Base):
@@ -56,12 +57,22 @@ class t2(Base):
 	cow_id = Column(Integer,primary_key=True)
 	tag_id = Column(Integer)
 	due_date = Column(DateTime)
+	past = Column(Integer)
 	
-def dailyEmail():
+class t3(Base):
+	__tablename__ = 't3'
+	cow_id = Column(Integer,primary_key=True)
+	tag_id = Column(Integer)
+	due_date = Column(DateTime)
+	past = Column(Integer)
+	
+def createBody():
 	fmt='%H:%M:%S %m-%d-%Y '
 	feed = []
+	today = []
 	preg = []
 	past_due = []
+	body = ""
 	session = Session()
 	#conn = engine.connect()
 	stmt = text("SELECT                                      \
@@ -84,66 +95,141 @@ WHERE                                                        \
 		next += str((Feeder.last_visit_date).strftime(fmt))
 		date = Feeder.last_visit_date
 		feed.append(next)
-	print("Cattle that have not visited the feeder in the past 3 days:")
-	for row in feed:
-		print(row)
+	body += "\nCattle that have not visited the feeder in the past 3 days:"
+	if not feed:
+		body += "\nNothing!"
+	else:
+		for row in feed:
+			body += "\n"
+			body += row
 	
-	fmt='%m-%d-%Y'
-	stmt1 = text("SELECT                                                                   \
-  `tag_id`,                                                                                \
-  `due_date`                                                                               \
-FROM                                                                                       \
-(SELECT                                                                                    \
-  `cow_id`,                                                                                \
-  `tag_id`,                                                                                \
-  `due_date`,                                                                              \
-  DATE_ADD(DATE(NOW()),                                                                    \
-  INTERVAL 7 DAY) AS 'future'                                                              \
-FROM                                                                                       \
-  `cow`                                                                                    \
-JOIN                                                                                       \
-  `animal` ON cow.cow_id = animal.animal_id                                                \
-WHERE                                                                                      \
-  `due_date` >= DATE(NOW()) AND `due_date` <= 'future' AND `pregnant` IS NOT NULL)         \
-  AS t1")
 	
-	stmt1 = stmt1.columns(t1.tag_id, t1.due_date)
-	for t1.tag_id, t1.due_date in session.query(t1.tag_id, t1.due_date).from_statement(stmt1):
-		next = "Tag: "
-		id = str(t1.tag_id)
-		next += id
-		next += "   Due Date: "
-		next += str((t1.due_date).strftime(fmt))
-		preg.append(next)
-	print("\nCows due in the next 7 days: ")
-	for row in preg:
-		print(row)
-		
-	stmt2 = text("SELECT                                                  \
+	
+	
+	stmt3 = text("SELECT                                                  \
   `tag_id`,                                                               \
-  `due_date`                                                             \
+  `due_date`,															  \
+  DATEDIFF(DATE(NOW()), `due_date`) AS 'past'							  \
 FROM                                                                      \
   `cow`                                                                   \
 JOIN                                                                      \
   `animal` ON cow.cow_id = animal.animal_id                               \
 WHERE                                                                     \
-  `due_date` <= DATE(NOW()) AND `pregnant` IS NOT NULL")
-	stmt2 = stmt2.columns(t2.tag_id, t2.due_date)
-	for t2.tag_id, t2.due_date in session.query(t2.tag_id, t2.due_date).from_statement(stmt2):
+  `due_date` = DATE(NOW()) AND `pregnant` = 0x1					  \
+ORDER BY																  \
+  `past` DESC")
+	stmt3 = stmt3.columns(t3.tag_id, t3.due_date, t3.past)
+	for t3.tag_id, t3.due_date, t3.past in session.query(t3.tag_id, t3.due_date, t3.past).from_statement(stmt3):
+		next = "Tag: "
+		id = str(t3.tag_id)
+		next += id
+		today.append(next)
+		
+	body += "\n\nCows due today: "
+	if not today:
+		body += "\nNothing!"
+	else:
+		for row in today:
+			body += "\n"
+			body += row
+	
+	fmt='%m-%d-%Y'
+	stmt1 = text("SELECT                                                                   \
+  `tag_id`,                                                                                \
+  `due_date`,                                                                              \
+  `num`\
+FROM                                                                                       \
+(SELECT                                                                                    \
+  `cow_id`,                                                                                \
+  `tag_id`,                                                                                \
+  `due_date`,                                                                              \
+  DATEDIFF(`due_date`,DATE(NOW())) AS 'num'                                                              \
+FROM                                                                                       \
+  `cow`                                                                                    \
+JOIN                                                                                       \
+  `animal` ON cow.cow_id = animal.animal_id                                                \
+WHERE                                                                                      \
+  `due_date` > DATE(NOW()) AND `due_date` <= (DATE(NOW())+7) AND `pregnant` = 0x1)         \
+  AS t1																					   \
+ORDER BY																				   \
+  `num` ASC")
+	stmt1 = stmt1.columns(t1.tag_id, t1.due_date, t1.num)
+	for t1.tag_id, t1.due_date, t1.num in session.query(t1.tag_id, t1.due_date, t1.num).from_statement(stmt1):
+		next = "Tag: "
+		id = str(t1.tag_id)
+		next += id
+		next += "   Days until Due: "
+		next += str(t1.num)
+		next += "   Due Date: "
+		next += str((t1.due_date).strftime(fmt))
+		preg.append(next)
+	body += "\n\nCows due in the next 7 days: "
+	if not preg:
+		body += "\nNothing!"
+	else:
+		for row in preg:
+			body += "\n"
+			body += row
+		
+	stmt2 = text("SELECT                                                  \
+  `tag_id`,                                                               \
+  `due_date`,															  \
+  DATEDIFF(DATE(NOW()), `due_date`) AS 'past'							  \
+FROM                                                                      \
+  `cow`                                                                   \
+JOIN                                                                      \
+  `animal` ON cow.cow_id = animal.animal_id                               \
+WHERE                                                                     \
+  `due_date` < DATE(NOW()) AND `pregnant` = 0x1					  \
+ORDER BY																  \
+  `past` DESC")
+	stmt2 = stmt2.columns(t2.tag_id, t2.due_date, t2.past)
+	for t2.tag_id, t2.due_date, t2.past in session.query(t2.tag_id, t2.due_date, t2.past).from_statement(stmt2):
 		next = "Tag: "
 		id = str(t2.tag_id)
 		next += id
+		next += "   Days Past Due: "
+		next += str(t2.past)
 		next += "   Due Date: "
 		next += str((t2.due_date).strftime(fmt))
 		past_due.append(next)
-	print("\nCows past due: ")
-	for row in past_due:
-		print row
+		
+	body += "\n\nCows past due: "
+	if not past_due:
+		body += "\nNothing!"
+	else:
+		for row in past_due:
+			body += "\n"
+			body += row
+	
+	return body
+	
+	
+def sendEmail(bod):
+	fromaddr = "cattletrackernotifications@gmail.com"
+	toaddr = "cousinoc@gmail.com"
+	msg = MIMEMultipart()
+	msg['From'] = fromaddr
+	msg['To'] = toaddr
+	msg['Subject'] = "Daily Email"
+	
+	body = bod
+	msg.attach(MIMEText(body, 'plain'))
+	
+	server = smtplib.SMTP('smtp.gmail.com', 587)
+	server.ehlo()
+	server.starttls()
+	server.ehlo()
+	server.login("Cattletrackernotifications", "Tracker2017")
+	text = msg.as_string()
+	server.sendmail(fromaddr, toaddr, text)
 	
 
 def main():
 	
-	dailyEmail()
+	body = createBody()
+	sendEmail(body)
+	
 	
 if __name__ == "__main__":
 	main()

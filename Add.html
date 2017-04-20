@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Edit Cow</title>
+  <title>Add Cow</title>
   
 <style>
       /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
@@ -260,46 +260,57 @@
 			<p>Fill in the information boxes provided and then press the 'Submit' button to add the new cow.</p>
 		</div>						
 			<ul >
-			
-					<li id="li_1" >
+		<select>
+      <option value="Cow">Cow</option>
+      <option value="Bull">Bull</option>
+      <option value="Calf">Calf</option>
+      </select>	
+		<li id="li_1" >
 		<label class="description" for="element_1">Tag ID </label>
 		<div>
 			<input id="element_1" name="element_1" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
-		</li>		<li id="li_2" >
-		<label class="description" for="element_2">Cow ID </label>
+		</li>		
+		<li id="li_2" >
+		<label class="description" for="element_2">RFID Tag ID </label>
 		<div>
 			<input id="element_2" name="element_2" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
-		</li>		<li id="li_3" >
-		<label class="description" for="element_3">Sex
- </label>
+		</li>		
+		<li id="li_3" >
+		<label class="description" for="element_3">Cow ID</label>
 		<div>
 			<input id="element_3" name="element_3" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
-		</li>		<li id="li_4" >
-		<label class="description" for="element_4">Weight
- </label>
+		</li>		
+		<li id="li_4" >
+		<label class="description" for="element_4">Sex </label>
 		<div>
 			<input id="element_4" name="element_4" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
-		</li>		<li id="li_5" >
-		<label class="description" for="element_5">Data of Birth </label>
+		</li>		
+		<li id="li_5" >
+		<label class="description" for="element_5">Weight </label>
 		<div>
 			<input id="element_5" name="element_5" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
-		</li>		<li id="li_6" >
-		<label class="description" for="element_6">Herd
- </label>
+		</li>		
+		<li id="li_6" >
+		<label class="description" for="element_6">Date of Birth</label>
 		<div>
 			<input id="element_6" name="element_6" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
 		</li>		<li id="li_7" >
-		<label class="description" for="element_7">Pasture </label>
+		<label class="description" for="element_7">Herd </label>
 		<div>
 			<input id="element_7" name="element_7" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
 		</li>
+		<li id="li_8" >
+		<label class="description" for="element_8">Pasture </label>
+		<div>
+			<input id="element_8" name="element_8" class="element text medium" type="text" maxlength="255" value=""/> 
+		</div> 
 			
 					<li class="buttons">
 			    <input type="hidden" name="form_id" value="25161" />

@@ -37,7 +37,6 @@ Database:
 -Add/Delete Cow Procedure
 -Update Cow Procedure
 -Add vaccination data.  Need to figure out how to actually store/display these.  
--Add Users/Logins
 -Expand search functionality to include herd and pasture.
 -Change  preganant and first year in Cow table to No by default.  
 -Add table to vaccines that indicates vaccination due.  
@@ -47,6 +46,9 @@ Database:
 -add DOB and medical condition to vitals
 -Search using Tag ID or Animal ID searches both fields, regardless of the text field the user selected.  FIXED
 -redo add_bull and add_calf proc, set a_type.
+-allow users to create vaccines and set the time interval for administration
+-make table to store any deleted animals.  Make the table flat with basic info. 
+-set default values for herd, pasture, farm to 0 in animal.  0 = unspecified.  
 
 RPI:
 -Learn more about SQL Alchemy's timeouts, connection pooling, etc., to improve functionality
@@ -59,7 +61,6 @@ RPI:
 HTML:
 -Make list of animals that visited feeder clickable.  Click calls pop-up that displays vitals.  
 -Validate input for all of our user fields.  **Need to validate Sire and Dam animal_id if adding to vitals.  Do this in JS?
--Create user login and authentications
 -Check out Drop Down Menu/Text field in one on StackOverflow for example on how to do vaccines.
 
 24 Hour Maintenance:  

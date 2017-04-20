@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import time
+import bitarray as bt
 from serial import Serial, SEVENBITS, EIGHTBITS, STOPBITS_ONE, PARITY_NONE
 import io
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
@@ -14,7 +15,7 @@ import datetime
 
 engine = create_engine('mysql://pjtinker:CattleTrax11!@149.149.150.136:3306/cattletrax', echo=True)
 Base = declarative_base(engine)
-Session = sessionmaker(bind=engine, autoflush=True, autocommit=False)
+Session = sessionmaker(bind=engine, autoflush=True, autocommit=False, pool_recycle=3600)
 class Feeder(Base):
         __tablename__='feeder'
         ref_id = Column(Integer, primary_key=True)
@@ -36,37 +37,67 @@ def updateDB(tag_id):
 
                 session.commit()
         except:
-                session.rollback() #do we want to rollback if we are saving queries?
+                session.rollback() 
                 raise
         finally:
                 session.close()
         
-def main():
-        fmt='%Y-%m-%d %H:%M:%S'
-        ser = Serial(port='/dev/ttyUSB0', baudrate=9600, parity=PARITY_NONE, stopbits=STOPBITS_ONE, bytesize=EIGHTBITS, timeout=2, xonxoff=False, rtscts=False)
-        fails = []
-        while 1:
+log_path = "/home/pi/CattleTrax/log.txt"
+log2_path = "/home/pi/CattleTrax/log2.txt"
+fmt='%Y-%m-%d %H:%M:%S'
+fails = []
+ifFails = False
+connected = False
+error_logged = False
 
-                if(ser.inWaiting() > 0):
 
-                        x = ser.readline()
-                        print(x)
-                        f = open("log.txt", "a")
+
+while not connected:
+        try:
+                
+                ser = Serial(port='/dev/ttyUSB0', baudrate=9600, parity=PARITY_NONE, stopbits=STOPBITS_ONE, bytesize=EIGHTBITS, timeout=2, xonxoff=False, rtscts=False)
+                connected = True
+        except Exception, e:
+                if not error_logged:
+                        f = open(log_path, "a")
+                        f.write("%s %s\n" % (str(datetime.datetime.now().strftime(fmt)), str(e)))
+                        f.close
+                        error_logged = True
+                time.sleep(5)
+
+while 1:
+        try:
+                for fail in fails:
+                        updateDB(fail)
+                        f = open(log_path, "a")
+                        f.write("%s %s\n" % (str(datetime.datetime.now().strftime(fmt)), str(fail)))
+                        ifFails = True
+                        f.close()
+                if ifFails:
+                        del fails[:]
+                        ifFails = False
+        except Exception, e:
+                continue
+
+        if(ser.inWaiting() > 0):
+
+                x = ser.readline()
+                print(x)
+
+                try:
+                        updateDB(int(x.replace(" ", "")))
+                        f = open(log_path, "a")
                         f.write("%s %s" % (str(datetime.datetime.now().strftime(fmt)), str(x.replace(" ", ""))))
+                        f.close()
+                except Exception, e:
+                        fails.append(int(x.replace(" ", "")))
+                        print(fails)
+                        print(str(e))
+                        f = open(log_path, "a")
+                        f.write("%s %s %s\n" % (str(datetime.datetime.now().strftime(fmt)), str(x.replace(" ", "")), str(e)))
+                        f.close()
 
-                        try:
-                                updateDB(int(x.replace(" ", "")))
-                                for fail in fails:
-                                        updateDB(fail)
-                                del fails[:]       
-                        except Exception, e:
-                                fails.append(int(x.replace(" ", "")))
-                                print(fails)
-                                print(str(e))
-                                f.write("%s %s\n" % (str(e), str(datetime.datetime.now().strftime(fmt))))
-                        finally:
-                                f.close()
-                                ser.flush()
+                finally:
+                        ser.flush()
 
-if __name__ == '__main__': main()
-
+ 

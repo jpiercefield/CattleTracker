@@ -64,7 +64,7 @@ while not connected:
                         f.write("%s %s\n" % (str(datetime.datetime.now().strftime(fmt)), str(e)))
                         f.close
                         error_logged = True
-        time.sleep(5)
+                time.sleep(5)
 
 while 1:
         try:

@@ -15,7 +15,7 @@ import datetime
 
 engine = create_engine('mysql://pjtinker:CattleTrax11!@149.149.150.136:3306/cattletrax', echo=True)
 Base = declarative_base(engine)
-Session = sessionmaker(bind=engine, autoflush=True, autocommit=False, pool_recycle=3600)
+Session = sessionmaker(bind=engine, autoflush=True, autocommit=False)
 class Feeder(Base):
         __tablename__='feeder'
         ref_id = Column(Integer, primary_key=True)
@@ -57,13 +57,14 @@ while not connected:
                 
                 ser = Serial(port='/dev/ttyUSB0', baudrate=9600, parity=PARITY_NONE, stopbits=STOPBITS_ONE, bytesize=EIGHTBITS, timeout=2, xonxoff=False, rtscts=False)
                 connected = True
+                continue
         except Exception, e:
                 if not error_logged:
                         f = open(log_path, "a")
                         f.write("%s %s\n" % (str(datetime.datetime.now().strftime(fmt)), str(e)))
                         f.close
                         error_logged = True
-                time.sleep(5)
+        time.sleep(5)
 
 while 1:
         try:

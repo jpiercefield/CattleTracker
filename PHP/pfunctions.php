@@ -8,7 +8,8 @@
 		getData(7);
 	}else if ($type == '30'){
 		getData(30);
-	}else if($type == 'db_search'){
+	}
+	if($type == 'db_search'){
 		search();
 	}
 

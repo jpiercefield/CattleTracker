@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
 
     jQuery.support.cors = true;
 
@@ -23,4 +23,4 @@ $(document).ready(function(){
         
         },
     })
-})
+})*/

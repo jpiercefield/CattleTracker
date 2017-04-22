@@ -290,8 +290,8 @@
   
     <script src="js/index.js"></script>
     
-    
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Tag ID..">
+    <!-- type number does not seem to work in mozilla on linux -->
+<input type="number" min="0" step="1" id="myInput" onkeyup="search()" placeholder="Search for Tag ID..">
 
 <table id="myTable">
   <tr class="header">
@@ -371,7 +371,14 @@ function myFunction() {
   }
 }
 </script>
-
+<script>
+function search(){
+  $.ajax({
+      type: "POST",
+      url: "PHP/pfunctions.php", 
+  })
+}
+</script>
 <script>
 function deleteRow(t)
 {

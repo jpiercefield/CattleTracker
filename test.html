@@ -3,6 +3,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <head>
+<meta charset="UTF-8">
 <title>PHP TEST </title>
 
 	<script>
@@ -11,7 +12,7 @@
 				e.preventDefault();
 				$.ajax({
 					type:"POST",
-					url:"pfunctions.php",
+					url:"PHP/pfunctions.php",
 					dataType:"json",
 					cache:false,
 					data:{
@@ -44,7 +45,7 @@
 				e.preventDefault();
 				$.ajax({
 					type:"POST",
-					url:"pfunctions.php",
+					url:"PHP/pfunctions.php",
 					dataType:"json",
 					cache:false,
 					data:{
@@ -78,7 +79,7 @@
 				e.preventDefault();
 				$.ajax({
 					type:"POST",
-					url:"pfunctions.php",
+					url:"PHP/pfunctions.php",
 					dataType:"json",
 					cache:false,
 					data:{
@@ -112,25 +113,29 @@
 			e.preventDefault();
 			$.ajax({
 				type:"POST",
-				url:"pfunctions.php",
+				url:"PHP/pfunctions.php",
 				dataType:"json",
 				cache:false,
 				data:{
 					tag_id: $("#tag_id").val(),
 					animal_id: $("#animal_id").val(),
+					pasture_num: $("#pasture_num").val(),
+					herd_num: $("#herd_num").val(),
+					animal_type: $("#animal_select").val(),
 					type: "db_search",
 				},
 			success: function(json){
 				if($.trim(json.error)) { alert(json.error); return;}
-				trHTML = '<table><tr><th>Tag ID</th><th>Animal ID</th><th>Age</th><th>Weight</th><th>Sire ID</th><th>Dame ID</th></tr>';
+				trHTML = '<table><tr><th>Tag ID</th><th>Animal ID</th><th>Type</th><th>Weight</th><th>Herd</th><th>Pasture</th></tr>';
 				$.each(json, function(index, element){
-					trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' + + element.age + '</td><td>' + element.weight + '</td><td>' + element.sire_id + '</td><td>' + element.herd_id +'</td></tr>';
+					trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' +element.a_type + '</td><td>' + element.weight + '</td><td>'  + element.herd_id + '</td><td>' + element.pasture_id +'</td></tr>';
 				});
 				trHTML += '</table>';
 				//alert(json[0].weight);
 				$("#land").html(trHTML);
 			},
 			});
+			$(":input").val("");
 		});
 	});
 	</script>
@@ -153,6 +158,13 @@
 <form id="db_search" method="POST">
 Tag ID: <input type="numeric" id="tag_id" autofocus><br></input>
 Animal ID: <input type="numeric" id="animal_id"><br></input>
+Herd: <input type="numeric" id="herd_num"><br></input>
+Pasture: <input type ="numeric" id="pasture_num"><br></input>
+<select id="animal_select">
+	<option value="cow" >Cow</option>
+	<option value="bull" >Bull</option>
+	<option value="calf" >Calf</option>
+</select>
 <button type="submit" id="db_search_button">Search</button>
 <button type="submit" id="add_cow">Add Cow</button>
 <button type="submit" id="remove_cow">Remove Cow</button>

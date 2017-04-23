@@ -1,12 +1,16 @@
 
 <!DOCTYPE html>
+<? php
+include_once 'PHP/pfunctions.php'
+?>
 <html >
 <head>
   <meta charset="UTF-8">
   <title>Database</title>
-  
-  
-  
+  <link rel ="stylesheet" href="css/style.css">
+  <link rel = "stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel = "stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css.map">
       <style>
       /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
       *, *:after, *:before {
@@ -112,7 +116,7 @@
   opacity: 0;
   visibility: hidden;
   margin: 20px 0 0 0;
-  background-color: rgba(79, 41, 133, 0.75); /*#4F2984;Purple*/
+  background-color: rgba(79, 41, 133, 0.75); #4F2984;Purple
   transition: margin .15s, opacity .15s;
 }
 .animenu__nav__child > li {
@@ -248,6 +252,11 @@
     </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="js/bootbox.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/jsfunctions.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 
 </head>
 
@@ -288,97 +297,110 @@
   </ul>
 </nav>
   
-    <script src="js/index.js"></script>
+
     
     <!-- type number does not seem to work in mozilla on linux -->
-<input type="number" min="0" step="1" id="myInput" onkeyup="search()" placeholder="Search for Tag ID..">
+RFID ID <input type="number" min="0" step="1" id="db_tag_input" onkeyup="db_search()" autofocus placeholder="Search for Tag ID..">
+Animal ID <input type="number" min="0" step="1" id="db_animal_input" onkeyup="db_search()">
+Herd <input type="number" min="0" step="1" id="db_herd_input" onkeyup="db_search()">
+Pasture <input type="number" min="0" step="1" id="db_pasture_input" onkeyup="db_search()">
+<br>
+Type: <select id="db_type_select" onchange="db_search()">
+	<option value="cow" >Cow</option>
+	<option value="bull" >Bull</option>
+	<option value="calf" >Calf</option>
+</select>
+ <input type="button" id="test_button">Test</input>
+ <table id="db_result_table">
 
-<table id="myTable">
-  <tr class="header">
-    <th style="width:20%;">Tag ID</th>
-    <th style="width:20%;">Cow ID</th>
-    <th style="width:10%;">Sex</th>
-    <th style="width:10%;">Weight</th>
-    <th style="width:10%;">Data of Birth</th>
-    <th style="width:10%;">Herd</th>
-    <th style="width:10%;">Pasture</th>
-    <th style="width:10%;">Delete</th>
-  </tr>
-  <tr>
-    <td>1330182</td>
-    <td>100001</td>
-    <td>F</td>
-    <td>1650</td>
-    <td>10/10/2010</td>
-    <td>7</td>
-    <td>2</td>
-    <td><button onclick="deleteRow(this)">Delete</button></td>
-  </tr>
-  <tr>
-    <td>1232839</td>
-    <td>100002</td>
-    <td>F</td>
-    <td>1820</td>
-    <td>10/10/2009</td>
-    <td>7</td>
-    <td>2</td>
-    <td><button onclick="deleteRow(this)">Delete</button></td>
-  </tr>
-  <tr>
-    <td>1736829</td>
-    <td>100005</td>
-    <td>M</td>
-    <td>1370</td>
-    <td>10/05/2011</td>
-    <td>9</td>
-    <td>1</td>
-    <td><button onclick="deleteRow(this)">Delete</button></td>
-  </tr>
-  <tr>
-    <td>13301823</td>
-    <td>100006</td>
-    <td>F</td>
-    <td>1000</td>
-    <td>11/08/2012</td>
-    <td>8</td>
-    <td>1</td>
-    <td><button onclick="deleteRow(this)">Delete</button></td>
-  </tr>
 </table>    
-    
-
+<form id="edit_form" method="post" class="form-horizontal" style="display: none;">
+	<div class="form-group">
+		<label class="col-xs-3 control-label">Animal ID</label>
+		<div class="col-xs-3">
+			<input type="numeric" class="form-control" name="edit_animal_input"/>
+		</div>
+	</div>
+  	<div class="form-group">
+		<label class="col-xs-3 control-label">RFID ID</label>
+		<div class="col-xs-5">
+			<input type="numeric" class="form-control" name="edit_tag_input"/>
+		</div>
+	</div>
+  	<div class="form-group">
+		<label class="col-xs-3 control-label">Herd</label>
+		<div class="col-xs-5">
+			<input type="numeric" class="form-control" name="edit_herd_input"/>
+		</div>
+	</div>
+  	<div class="form-group">
+		<label class="col-xs-3 control-label">Pasture</label>
+		<div class="col-xs-5">
+			<input type="numeric" class="form-control" name="edit_pasture_input"/>
+		</div>
+	</div>
+</form>
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="edit_modal_label">Edit Modal</h4>
+				</div>
+				<div class="modal-body">
+					<h3>Edit Modal Body</h3>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
 </body>
 
 <script>
-function myFunction() {
-  // Declare variables 
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    } 
-  }
+function db_search(){
+    $.ajax({
+        type:"POST",
+        url:"PHP/pfunctions.php",
+        dataType:"json",
+        cache:false,     
+        data: {
+            tag_id: $("#db_tag_input").val(),
+            animal_id: $("#db_animal_input").val(),
+            pasture_num: $("#db_pasture_input").val(),
+            herd_num: $("#db_herd_input").val(),
+            animal_type: $("#db_type_select").val(),
+            type:"db_search",
+        },
+        success: function(json){
+            if($.trim(json.error)) { alert(json.error); return;}  
+            trHTML = '<tr class="header"><th style="width:20%;">Tag ID</th><th style="width:20%;">Cow ID</th><th style="width:10%;">Type</th><th style="width:10%;">Weight</th><th style="width:10%;">Herd</th><th style="width:10%;">Pasture</th><th style="width:10%;">Edit</th></tr>';
+            $.each(json, function(index, element){
+                trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' +element.a_type + '</td><td>' + element.weight + '</td><td>'  + element.herd_id + '</td><td>' + element.pasture_id +'</td><td><a href="#" class = "btn btn-sm btn-success" id="edit_modal_button" data-id='+index+'>Edit</a></td></tr>';
+            });
+            $('#db_result_table').html(trHTML);
+            
+        },
+    });
+    
 }
 </script>
 <script>
-function search(){
-  $.ajax({
-      type: "POST",
-      url: "PHP/pfunctions.php", 
-  })
-}
+$(document).ready(function(){
+	$(document).on("click", '#edit_modal_button', function(){
+		//$("#edit_modal").modal();
+		var $row = $(this).closest("tr");
+		var $tag = $row.find("td:nth-child(1)").text();
+		//THIS WORKS.  It pulls the tag number from the row.  Next I'll need to 
+		//populate the modal.  Then figure out how to update any changes.  Perhaps this
+		//can be a view only?  Just the details.
+		alert($tag);
+		
+	});
+});
 </script>
+
 <script>
 function deleteRow(t)
 {

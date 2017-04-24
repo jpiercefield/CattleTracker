@@ -12,6 +12,9 @@
 	if($type == 'db_search'){
 		search();
 	}
+	if($type == 'cow_edit'){
+		cow_edit();
+	}
 
 
 	function login(){
@@ -77,5 +80,25 @@
 
 	}
 
+	function cow_edit(){
+		$db=login();
+		try {
+			$stmt = $db->prepare('SELECT cow.cow_id, animal.tag_id, vitals.weight, animal.herd_id, animal.pasture_id, cow.due_date, vitals.DOB, vitals.medical_cond, cow.pregnant FROM cow JOIN animal ON cow.cow_id = animal.animal_id JOIN vitals ON vitals.animal_id = animal.animal_id WHERE animal.animal_id = :tag');
+			$tag = $_POST['tag_id'];
+			$stmt->bindParam(':tag', $tag);
+			$stmt->execute();
+			$rows = array();
+			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+				$rows[] = $row;
+			}
+			print json_encode($rows);	
+		}catch(PDOException $e){
+			$arr = array('error' => $e->getMessage());
+			print json_encode($arr);
+			}	
+	}
+
+
+//SELECT cow.*, animal.*, vitals.* FROM cow JOIN animal ON cow.cow_id = animal.animal_id JOIN vitals ON vitals.animal_id = animal.animal_id WHERE animal.animal_id LIKE :tag
 ?>
 

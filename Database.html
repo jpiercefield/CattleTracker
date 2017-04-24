@@ -253,10 +253,11 @@ include_once 'PHP/pfunctions.php'
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="js/bootbox.min.js"></script>
   <script src="js/index.js"></script>
   <script src="js/jsfunctions.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+ 
 
 </head>
 
@@ -306,6 +307,7 @@ Herd <input type="number" min="0" step="1" id="db_herd_input" onkeyup="db_search
 Pasture <input type="number" min="0" step="1" id="db_pasture_input" onkeyup="db_search()">
 <br>
 Type: <select id="db_type_select" onchange="db_search()">
+	<option value="">All</option>
 	<option value="cow" >Cow</option>
 	<option value="bull" >Bull</option>
 	<option value="calf" >Calf</option>
@@ -340,19 +342,51 @@ Type: <select id="db_type_select" onchange="db_search()">
 		</div>
 	</div>
 </form>
-<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modal" aria-hidden="true">
+<div class="modal fade" id="cow_edit_modal" tabindex="-1" role="dialog" data-width="760" aria-labelledby="cow_edit_modal" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="edit_modal_label">Edit Modal</h4>
+				<h4 class="modal-title" id="cow_edit_modal_label">Edit Cow Info</h4>
 				</div>
 				<div class="modal-body">
-					<h3>Edit Modal Body</h3>
+					<div class = "row-fluid">
+						<div class="span5">
+							<h5>RFID</h5>
+							<p><input type="numeric" id="cow_edit_rfid_input" disabled value=""></input>
+              <input type="checkbox" id="cow_edit_rfid_chk" /></p>
+							<h5>Animal ID</h5>
+							<p><input type="numeric" id="cow_edit_animal_input" disabled value=""></input>
+              <input type="checkbox" id="cow_edit_animal_chk" /></p>
+							<h5>Herd</h5>
+							<p><input type="numeric" id="cow_edit_herd_input" disabled value=""></input>
+              <input type="checkbox" id="cow_edit_herd_chk" /></p>
+							<h5>Pasture</h5>
+							<p><input type="numeric" id="cow_edit_pasture_input" disabled value=""></input>
+              <input type="checkbox" id="cow_edit_pasture_chk" /></p>
+
+						</div>
+						<div class="span5">
+							<h5>Weight</h5>
+							<p><input type="numeric" id="cow_edit_weight_input" disabled value=""></input>
+              <input type="checkbox" id="cow_edit_weight_chk" /></p>
+							<h5>Date of Birth</h5>
+							<p><input type="date" id="cow_edit_DOB_input" disabled value=""></input>
+              <input type="checkbox" id="cow_edit_DOB_chk" /></p>
+							<h5>Medical Condition</h5>
+							<p><input type="numeric" id="cow_edit_cond_input" disabled value=""></input>
+              <input type="checkbox" id="cow_edit_cond_chk" /></p>
+							<h5>Pregnant</h5>
+							<p><input type="numeric" id="cow_edit_preg_input" disabled value=""></input>
+              <input type="checkbox" id="cow_edit_preg_chk" /></p>
+							<h5>Due Date</h5>
+							<p><input type="numeric" id="cow_edit_dued_input" disabled value=""></input>
+              <input type="checkbox" id="cow_edit_dued_chk" /></p>							
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-primary" id="cow_edit_modal_save">Save changes</button>
 					</div>
 				</div>
 			</div>
@@ -377,10 +411,9 @@ function db_search(){
             if($.trim(json.error)) { alert(json.error); return;}  
             trHTML = '<tr class="header"><th style="width:20%;">Tag ID</th><th style="width:20%;">Cow ID</th><th style="width:10%;">Type</th><th style="width:10%;">Weight</th><th style="width:10%;">Herd</th><th style="width:10%;">Pasture</th><th style="width:10%;">Edit</th></tr>';
             $.each(json, function(index, element){
-                trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' +element.a_type + '</td><td>' + element.weight + '</td><td>'  + element.herd_id + '</td><td>' + element.pasture_id +'</td><td><a href="#" class = "btn btn-sm btn-success" id="edit_modal_button" data-id='+index+'>Edit</a></td></tr>';
+                trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' +element.a_type + '</td><td>' + element.weight + '</td><td>'  + element.herd_id + '</td><td>' + element.pasture_id +'</td><td><a href="#" class = "btn btn-sm btn-success" id="cow_edit_modal_button" data-toggle="modal" data-target="#cow_edit_modal" data-id='+index+'>Edit</a></td></tr>';
             });
-            $('#db_result_table').html(trHTML);
-            
+            $('#db_result_table').html(trHTML);          
         },
     });
     
@@ -388,26 +421,65 @@ function db_search(){
 </script>
 <script>
 $(document).ready(function(){
-	$(document).on("click", '#edit_modal_button', function(){
-		//$("#edit_modal").modal();
+	$(document).on("click", '#cow_edit_modal_button', function(){
+		
 		var $row = $(this).closest("tr");
-		var $tag = $row.find("td:nth-child(1)").text();
-		//THIS WORKS.  It pulls the tag number from the row.  Next I'll need to 
-		//populate the modal.  Then figure out how to update any changes.  Perhaps this
-		//can be a view only?  Just the details.
-		alert($tag);
+		var $tag = $row.find("td:nth-child(2)").text();
+		var $type = $row.find("td:nth-child(3)").text();
+		var editModal = $("#cow_edit_modal");
+		$type += "_edit";
+		$.ajax({
+
+			type:"POST",
+			url:"PHP/pfunctions.php",
+			dataType:"json",
+			cache: false,
+			data: {
+				tag_id: $tag,
+				type: $type,
+			},
+			success: function(json){
+				if($.trim(json.error)) {alert(json.error);return;}
+        $("#cow_edit_rfid_input").val(json[0].tag_id);
+        $("#cow_edit_dued_input").val(json[0].due_date);
+        $("#cow_edit_preg_input").val(json[0].pregnant);
+				$("#cow_edit_DOB_input").val(json[0].DOB);
+        $("#cow_edit_cond_input").val(json[0].medical_cond);
+        $("#cow_edit_animal_input").val(json[0].cow_id);
+        $("#cow_edit_pasture_input").val(json[0].pasture_id);
+        $("#cow_edit_herd_input").val(json[0].herd_id);
+        $("#cow_edit_weight_input").val(json[0].weight);
+ 
+			}
+		});	
+		editModal.modal();
+
 		
 	});
 });
+/*$("#edit_modal").on("show.bs.modal", function (e) {
+	var $row = $(this).closest("tr");
+	var $tag = $row.find("td:nth-child(1)").text();	
+	alert($tag);
+	$("#edit_rfid_input").val($tag);
+});*/
 </script>
 
 <script>
-function deleteRow(t)
-{
-    var row = t.parentNode.parentNode;
-    document.getElementById("myTable").deleteRow(row.rowIndex);
-    console.log(row);
-}
+ $(function(){
+    $("#cow_edit_rfid_chk").change(function(event){
+     $("#cow_edit_rfid_input").prop('disabled', !$(event.target).is(':checked'));
+    });
+ });
+
+</script>
+<script>
+$(function(){
+  $("cow_edit_modal_save").on("click", function(e) {
+    $("cow_edit_modal").modal('hide');
+  });
+
+});
 </script>
 </html>
 

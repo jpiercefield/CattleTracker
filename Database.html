@@ -352,25 +352,24 @@ Type: <select id="db_type_select" onchange="db_search()">
 				<div class="modal-body">
 					<div class = "row-fluid">
 						<div class="span5">
-							<h5>RFID</h5>
-							<p><input type="numeric" id="cow_edit_rfid_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_rfid_chk" /></p>
+							<h5>RFID Tag</h5>
+							<p><input type="numeric" id="cow_edit_tag_input" disabled value=""></input>
+              <input type="checkbox" id="cow_edit_tag_chk" onclick = "document.getElementById('cow_edit_tag_input').disabled=!this.checked;" /></p>
 							<h5>Animal ID</h5>
 							<p><input type="numeric" id="cow_edit_animal_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_animal_chk" /></p>
+              <input type="checkbox" id="cow_edit_animal_chk" onclick = "document.getElementById('cow_edit_animal_input').disabled=!this.checked;" /></p>
 							<h5>Herd</h5>
 							<p><input type="numeric" id="cow_edit_herd_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_herd_chk" /></p>
+              <input type="checkbox" id="cow_edit_herd_chk" onclick = "document.getElementById('cow_edit_herd_input').disabled=!this.checked;" /></p>
 							<h5>Pasture</h5>
 							<p><input type="numeric" id="cow_edit_pasture_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_pasture_chk" /></p>
+              <input type="checkbox" id="cow_edit_pasture_chk" onclick = "document.getElementById('cow_edit_pasture_input').disabled=!this.checked;" /></p>
 
-						</div>
-						<div class="span5">
+
 							<h5>Weight</h5>
 							<p><input type="numeric" id="cow_edit_weight_input" disabled value=""></input>
               <input type="checkbox" id="cow_edit_weight_chk" /></p>
-							<h5>Date of Birth</h5>
+							<h5>Date of Birth (yyyy-mm-dd)</h5>
 							<p><input type="date" id="cow_edit_DOB_input" disabled value=""></input>
               <input type="checkbox" id="cow_edit_DOB_chk" /></p>
 							<h5>Medical Condition</h5>
@@ -379,8 +378,8 @@ Type: <select id="db_type_select" onchange="db_search()">
 							<h5>Pregnant</h5>
 							<p><input type="numeric" id="cow_edit_preg_input" disabled value=""></input>
               <input type="checkbox" id="cow_edit_preg_chk" /></p>
-							<h5>Due Date</h5>
-							<p><input type="numeric" id="cow_edit_dued_input" disabled value=""></input>
+							<h5>Due Date (yyyy-mm-dd)</h5>
+							<p><input type="date" id="cow_edit_dued_input" disabled value=""></input>
               <input type="checkbox" id="cow_edit_dued_chk" /></p>							
 					</div>
 				</div>
@@ -409,9 +408,9 @@ function db_search(){
         },
         success: function(json){
             if($.trim(json.error)) { alert(json.error); return;}  
-            trHTML = '<tr class="header"><th style="width:20%;">Tag ID</th><th style="width:20%;">Cow ID</th><th style="width:10%;">Type</th><th style="width:10%;">Weight</th><th style="width:10%;">Herd</th><th style="width:10%;">Pasture</th><th style="width:10%;">Edit</th></tr>';
+            trHTML = '<tr class="header"><th style="width:20%;">Tag ID</th><th style="width:20%;">Cow ID</th><th style="width:10%;">Type</th><th style="width:10%;">Herd</th><th style="width:10%;">Pasture</th><th style="width:10%;">Edit</th></tr>';
             $.each(json, function(index, element){
-                trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' +element.a_type + '</td><td>' + element.weight + '</td><td>'  + element.herd_id + '</td><td>' + element.pasture_id +'</td><td><a href="#" class = "btn btn-sm btn-success" id="cow_edit_modal_button" data-toggle="modal" data-target="#cow_edit_modal" data-id='+index+'>Edit</a></td></tr>';
+                trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' +element.a_type + '</td><td>' + element.herd_id + '</td><td>' + element.pasture_id +'</td><td><a href="#" class = "btn btn-sm btn-success" id="cow_edit_modal_button" data-toggle="modal" data-target="#cow_edit_modal" data-id='+index+'>Edit</a></td></tr>';
             });
             $('#db_result_table').html(trHTML);          
         },
@@ -421,13 +420,15 @@ function db_search(){
 </script>
 <script>
 $(document).ready(function(){
+  var editModal = $("#cow_edit_modal");
+  var cow_id="";
 	$(document).on("click", '#cow_edit_modal_button', function(){
 		
 		var $row = $(this).closest("tr");
 		var $tag = $row.find("td:nth-child(2)").text();
 		var $type = $row.find("td:nth-child(3)").text();
-		var editModal = $("#cow_edit_modal");
-		$type += "_edit";
+		
+		$type += "_data";
 		$.ajax({
 
 			type:"POST",
@@ -440,7 +441,7 @@ $(document).ready(function(){
 			},
 			success: function(json){
 				if($.trim(json.error)) {alert(json.error);return;}
-        $("#cow_edit_rfid_input").val(json[0].tag_id);
+        $("#cow_edit_tag_input").val(json[0].tag_id);
         $("#cow_edit_dued_input").val(json[0].due_date);
         $("#cow_edit_preg_input").val(json[0].pregnant);
 				$("#cow_edit_DOB_input").val(json[0].DOB);
@@ -449,37 +450,89 @@ $(document).ready(function(){
         $("#cow_edit_pasture_input").val(json[0].pasture_id);
         $("#cow_edit_herd_input").val(json[0].herd_id);
         $("#cow_edit_weight_input").val(json[0].weight);
- 
+        cow_id = json[0].cow_id;
 			}
 		});	
-		editModal.modal();
+		//editModal.modal($("#cow_edit_tag_input").val());
 
+  });
+  var enable_edit = function(){
+
+  }
+  $(document).on("click", '#cow_edit_modal_save', function() {
+    $.ajax({
+      type:"POST",
+      url:"PHP/pfunctions.php",
+      dataType:"json",
+      cache:false,
+      data: {
+        type: "cow_edit",
+        old_animal_id: cow_id,
+        new_animal_id: $("#cow_edit_animal_input").val(),
+        due_date: $("#cow_edit_dued_input").val(),
+        tag_id: $("#cow_edit_tag_input").val(),
+        pregnant: $("#cow_edit_preg_input").val(),
+        DOB: $("#cow_edit_DOB_input").val(),
+        med_cond: $("#cow_edit_cond_input").val(),
+        pasture: $("#cow_edit_pasture_input").val(),
+        herd: $("#cow_edit_herd_input").val(),
+        weight: $("#cow_edit_weight_input").val(),
+      },
+      success: function(json) {
+       alert(json.message);
+      // alert("in success");
+      }
+    });
+
+    editModal.modal('hide');
+    db_search();
+    $('input[type=checkbox]').attr('checked', false);
+  });
 		
 	});
-});
-/*$("#edit_modal").on("show.bs.modal", function (e) {
-	var $row = $(this).closest("tr");
-	var $tag = $row.find("td:nth-child(1)").text();	
-	alert($tag);
-	$("#edit_rfid_input").val($tag);
-});*/
+
 </script>
 
 <script>
+
+</script>
+<script>//Have to find a way to enable these with one function
+function setActive(caller){
+ // alert("in set active");
+  if(caller.checked){
+       $(caller.id).prop('disabled', false);
+     }else{
+      $(caller.id).prop('disabled', true);
+     }
+}
+/* $(function(){
+    $("#cow_edit_tag_chk").change(function(event){
+     $("#cow_edit_tag_input").prop('disabled', !$(event.target).is(':checked'));
+    });
+ });*/
  $(function(){
-    $("#cow_edit_rfid_chk").change(function(event){
-     $("#cow_edit_rfid_input").prop('disabled', !$(event.target).is(':checked'));
+    $("#cow_edit_animal_chk").change(function(event){
+     $("#cow_edit_animal_input").prop('disabled', !$(event.target).is(':checked'));
     });
  });
-
+ $(function(){
+    $("#cow_edit_weight_chk").change(function(event){
+     $("#cow_edit_weight_input").prop('disabled', !$(event.target).is(':checked'));
+    });
+ });
+ $(function(){
+    $("#cow_edit_cond_chk").change(function(event){
+     $("#cow_edit_cond_input").prop('disabled', !$(event.target).is(':checked'));
+    });
+ });
+ $(function(){
+    $("#cow_edit_dued_chk").change(function(event){
+     $("#cow_edit_dued_input").prop('disabled', !$(event.target).is(':checked'));
+    });
+ });
 </script>
 <script>
-$(function(){
-  $("cow_edit_modal_save").on("click", function(e) {
-    $("cow_edit_modal").modal('hide');
-  });
 
-});
 </script>
 </html>
 

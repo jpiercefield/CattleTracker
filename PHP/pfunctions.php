@@ -142,7 +142,55 @@
 
 	}
 
-	
+   function cow_add()
+   {
+      $db=login();
+      
+      $new_animal_id = $_POST['new_animal_id'];
+		$due_date = date('Y-m-d', strtotime($_POST['due_date']));
+		$tag_id = $_POST['tag_id'];
+		$pregnant = $_POST['pregnant'];
+		$DOB = date('Y-m-d', strtotime($_POST['DOB']));
+		$med_cond = $_POST['med_cond'];
+		$pasture = $_POST['pasture'];
+		$herd = $_POST['herd'];
+		$weight = $_POST['weight'];
 
+      $q1 = 'INSERT INTO animal(animal_id, due_date, tag_id, pregnant, DOB, med_cond, pasture, herd, weight) values
+          (:new_animal_id, :due_date, :tag_id, :pregnant, :DOB, :med_cond, :pasture, :herd, :weight)';
+          
+   
+      try{
+         $stmt = $db->prepare($q1);
+         $stmt->execute(array(":new_animal_id" => $new_animal_id, ":due_date" => $due_date, ":tag_id" => $tag_id, ":pregnant" => $pregnant, ":med_cond" => $med_cond, ":pasture" => $pasture, ":herd" => $herd, "weight" => $weight));
+         print json_encode($return);
+      }catch(PDOException $e){
+         $return = array('message' => $e->getMessage());
+         print json_encode($return);
+      }
+   }
+   
+   function bull_add()
+   {
+      $db=login();
+      try{
+      
+      }catch(PDOException $e){
+         $return = array('message' => $e->getMessage());
+         print json_encode($return);
+      }
+   }
+   
+   function calf_add()
+   {
+      $db=login();
+      try{
+      
+      }catch(PDOException $e){
+         $return = array('message' => $e->getMessage());
+         print json_encode($return);
+      }
+   }
+	
 ?>
 

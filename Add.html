@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<? php
-include_once 'PHP/pfunctions.php'
-?>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -269,69 +266,56 @@ include_once 'PHP/pfunctions.php'
       <option value="Calf">Calf</option>
       </select>	
 		<li id="li_1" >
-		<label class="description" for="element_1">RFID ID</label>
+		<label class="description" for="element_1">Tag ID </label>
 		<div>
-			<input id="rfid_id" name="element_1" class="element text medium" type="numeric" maxlength="255" value=""/> 
+			<input id="element_1" name="element_1" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
 		</li>		
 		<li id="li_2" >
-		<label class="description" for="element_2">Animal ID</label>
+		<label class="description" for="element_2">RFID Tag ID </label>
 		<div>
-			<input id="animal_id" name="element_2" class="element text medium" type="numeric" maxlength="255" value=""/> 
+			<input id="element_2" name="element_2" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
 		</li>		
 		<li id="li_3" >
 		<label class="description" for="element_3">Cow ID</label>
 		<div>
-			<input id="cow_id" name="element_3" class="element text medium" type="numeric" maxlength="255" value=""/> 
+			<input id="element_3" name="element_3" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
 		</li>		
 		<li id="li_4" >
-		<label class="description" for="element_4">Pasture</label>
+		<label class="description" for="element_4">Sex </label>
 		<div>
-			<input id="pasture" name="element_4" class="element text medium" type="numeric" maxlength="255" value=""/> 
+			<input id="element_4" name="element_4" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
 		</li>		
 		<li id="li_5" >
-		<label class="description" for="element_5">Herd </label>
+		<label class="description" for="element_5">Weight </label>
 		<div>
-			<input id="herd" name="element_5" class="element text medium" type="numeric" maxlength="255" value=""/> 
+			<input id="element_5" name="element_5" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
 		</li>		
 		<li id="li_6" >
-		<label class="description" for="element_6">Date of Birth (yyyy-mm-dd)</label>
+		<label class="description" for="element_6">Date of Birth</label>
 		<div>
-			<input id="dob" name="element_6" class="element text medium" type="date" maxlength="255" value=""/> 
+			<input id="element_6" name="element_6" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
 		</li>		<li id="li_7" >
-		<label class="description" for="element_7">Medical Condition </label>
+		<label class="description" for="element_7">Herd </label>
 		<div>
-			<input id="med_con" name="element_7" class="element text medium" type="numeric" maxlength="255" value=""/> 
+			<input id="element_7" name="element_7" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
 		</li>
 		<li id="li_8" >
-		<label class="description" for="element_8">Pregnant</label>
+		<label class="description" for="element_8">Pasture </label>
 		<div>
-			<input id="prego" name="element_8" class="element text medium" type="numeric" maxlength="255" value=""/> 
+			<input id="element_8" name="element_8" class="element text medium" type="text" maxlength="255" value=""/> 
 		</div> 
-		</li>
-		<li id="li_9" >
-		<label class="description" for="element_9">Due Date (yyyy-mm-dd)</label>
-		<div>
-			<input id="due_date" name="element_9" class="element text medium" type="date" maxlength="255" value=""/> 
-		</div> 
-		</li>
-		<li id="li_9" >
-		<label class="description" for="element_10">Weight</label>
-		<div>
-			<input id="weight" name="element_10" class="element text medium" type="date" maxlength="255" value=""/> 
-		</div> 
-		</li>		
 			
 					<li class="buttons">
 			    <input type="hidden" name="form_id" value="25161" />
 			    
-				<input id="saveForm" class="button_text" type="button" name="submit" value="Submit" />
+				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
 		</li>
 			</ul>
 		</form>	
@@ -341,30 +325,4 @@ include_once 'PHP/pfunctions.php'
     
 
 </body>
-<script>
-  $(document).on("click", '#saveForm', function() {
-    $.ajax({
-      type:"POST",
-      url:"PHP/pfunctions.php",
-      dataType:"json",
-      cache:false,
-      data: {
-        type: "cow_add",
-        new_animal_id: $("#rfid_id").val(),
-        cow_id: $("#cow_id").val(),
-        due_date: $("#due_date").val(),
-        tag_id: $("#animal_id").val(),
-        pregnant: $("#prego").val(),
-        DOB: $("#dob").val(),
-        med_cond: $("#med_con").val(),
-        pasture: $("#pasture").val(),
-        herd: $("#herd").val(),
-        weight: $("#weight").val(),
-      },
-      success: function(json) {
-       alert(json.message);
-      // alert("in success");
-      }
-    });
-</script>
 </html>

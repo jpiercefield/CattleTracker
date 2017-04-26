@@ -312,36 +312,11 @@ Type: <select id="db_type_select" onchange="db_search()">
 	<option value="bull" >Bull</option>
 	<option value="calf" >Calf</option>
 </select>
- <input type="button" id="test_button">Test</input>
  <table id="db_result_table">
 
 </table>    
-<form id="edit_form" method="post" class="form-horizontal" style="display: none;">
-	<div class="form-group">
-		<label class="col-xs-3 control-label">Animal ID</label>
-		<div class="col-xs-3">
-			<input type="numeric" class="form-control" name="edit_animal_input"/>
-		</div>
-	</div>
-  	<div class="form-group">
-		<label class="col-xs-3 control-label">RFID ID</label>
-		<div class="col-xs-5">
-			<input type="numeric" class="form-control" name="edit_tag_input"/>
-		</div>
-	</div>
-  	<div class="form-group">
-		<label class="col-xs-3 control-label">Herd</label>
-		<div class="col-xs-5">
-			<input type="numeric" class="form-control" name="edit_herd_input"/>
-		</div>
-	</div>
-  	<div class="form-group">
-		<label class="col-xs-3 control-label">Pasture</label>
-		<div class="col-xs-5">
-			<input type="numeric" class="form-control" name="edit_pasture_input"/>
-		</div>
-	</div>
-</form>
+<div>
+<div>
 <div class="modal fade" id="cow_edit_modal" tabindex="-1" role="dialog" data-width="760" aria-labelledby="cow_edit_modal" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -368,19 +343,19 @@ Type: <select id="db_type_select" onchange="db_search()">
 
 							<h5>Weight</h5>
 							<p><input type="numeric" id="cow_edit_weight_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_weight_chk" /></p>
+              <input type="checkbox" id="cow_edit_weight_chk" onclick = "document.getElementById('cow_edit_weight_input').disabled=!this.checked;" /></p>
 							<h5>Date of Birth (yyyy-mm-dd)</h5>
 							<p><input type="date" id="cow_edit_DOB_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_DOB_chk" /></p>
+              <input type="checkbox" id="cow_edit_DOB_chk" onclick = "document.getElementById('cow_edit_DOB_input').disabled=!this.checked;" /></p>
 							<h5>Medical Condition</h5>
-							<p><input type="numeric" id="cow_edit_cond_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_cond_chk" /></p>
+							<p><textarea name="Text1" id="cow_edit_cond_input" disabled cols="40" rows="5"value=""></textarea>
+              <input type="checkbox" id="cow_edit_cond_chk" onclick = "document.getElementById('cow_edit_cond_input').disabled=!this.checked;" /></p>
 							<h5>Pregnant</h5>
 							<p><input type="numeric" id="cow_edit_preg_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_preg_chk" /></p>
+              <input type="checkbox" id="cow_edit_preg_chk" onclick = "document.getElementById('cow_edit_preg_input').disabled=!this.checked;"/></p>
 							<h5>Due Date (yyyy-mm-dd)</h5>
 							<p><input type="date" id="cow_edit_dued_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_dued_chk" /></p>							
+              <input type="checkbox" id="cow_edit_dued_chk" onclick = "document.getElementById('cow_edit_dued_input').disabled=!this.checked;"/></p>							
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -389,6 +364,62 @@ Type: <select id="db_type_select" onchange="db_search()">
 					</div>
 				</div>
 			</div>
+</div>
+</div>
+<div>
+<div>
+<div class="modal fade" id="bull_edit_modal" tabindex="-1" role="dialog" data-width="760" aria-labelledby="bull_edit_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="bull_edit_modal_label">Edit Bull Info</h4>
+        </div>
+        <div class="modal-body">
+          <div class = "row-fluid">
+            <div class="span5">
+              <h5>RFID Tag</h5>
+              <p><input type="numeric" id="bull_edit_tag_input" disabled value=""></input>
+              <input type="checkbox" id="bull_edit_tag_chk" onclick = "document.getElementById('bull_edit_tag_input').disabled=!this.checked;" /></p>
+              <h5>Animal ID</h5>
+              <p><input type="numeric" id="bull_edit_animal_input" disabled value=""></input>
+              <input type="checkbox" id="bull_edit_animal_chk" onclick = "document.getElementById('bull_edit_animal_input').disabled=!this.checked;" /></p>
+              <h5>Herd</h5>
+              <p><input type="numeric" id="bull_edit_herd_input" disabled value=""></input>
+              <input type="checkbox" id="bull_edit_herd_chk" onclick = "document.getElementById('bull_edit_herd_input').disabled=!this.checked;" /></p>
+              <h5>Pasture</h5>
+              <p><input type="numeric" id="bull_edit_pasture_input" disabled value=""></input>
+              <input type="checkbox" id="bull_edit_pasture_chk" onclick = "document.getElementById('bull_edit_pasture_input').disabled=!this.checked;" /></p>
+
+
+              <h5>Weight</h5>
+              <p><input type="numeric" id="bull_edit_weight_input" disabled value=""></input>
+              <input type="checkbox" id="bull_edit_weight_chk" onclick = "document.getElementById('bull_edit_weight_input').disabled=!this.checked;" /></p>
+              <h5>Date of Birth (yyyy-mm-dd)</h5>
+              <p><input type="date" id="bull_edit_DOB_input" disabled value=""></input>
+              <input type="checkbox" id="bull_edit_DOB_chk" onclick = "document.getElementById('bull_edit_DOB_input').disabled=!this.checked;" /></p>
+              <h5>Medical Condition</h5>
+              <p><textarea name="Text1" id="bull_edit_cond_input" disabled cols="40" rows="5"value=""></textarea>
+              <input type="checkbox" id="bull_edit_cond_chk" onclick = "document.getElementById('bull_edit_cond_input').disabled=!this.checked;" /></p>
+              <h5>Castrated?</h5>
+              <p><input type="numeric" id="bull_edit_castrated_input" disabled value=""></input>
+              <input type="checkbox" id="bull_edit_castrated_chk" onclick = "document.getElementById('bull_edit_castrated_input').disabled=!this.checked;"/></p>
+              <h5>Number of calves sired</h5>
+              <p><input type="date" id="bull_edit_numSired_input" disabled value=""></input>
+              <input type="checkbox" id="bull_edit_numSired_chk" onclick = "document.getElementById('bull_edit_numSired_input').disabled=!this.checked;"/></p>   
+              <h5>Body Index</h5>
+              <p><input type="date" id="bull_edit_index_input" disabled value=""></input>
+              <input type="checkbox" id="bull_edit_index_chk" onclick = "document.getElementById('bull_edit_index_input').disabled=!this.checked;"/></p>           
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="bull_edit_modal_save">Save changes</button>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
 </body>
 
 <script>
@@ -410,7 +441,7 @@ function db_search(){
             if($.trim(json.error)) { alert(json.error); return;}  
             trHTML = '<tr class="header"><th style="width:20%;">Tag ID</th><th style="width:20%;">Cow ID</th><th style="width:10%;">Type</th><th style="width:10%;">Herd</th><th style="width:10%;">Pasture</th><th style="width:10%;">Edit</th></tr>';
             $.each(json, function(index, element){
-                trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' +element.a_type + '</td><td>' + element.herd_id + '</td><td>' + element.pasture_id +'</td><td><a href="#" class = "btn btn-sm btn-success" id="cow_edit_modal_button" data-toggle="modal" data-target="#cow_edit_modal" data-id='+index+'>Edit</a></td></tr>';
+                trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' +element.a_type + '</td><td>' + element.herd_id + '</td><td>' + element.pasture_id +'</td><td><a href="#'+element.a_type+'_edit_modal" class = "btn btn-sm btn-success" id="'+element.a_type+'_edit_modal_button" data-toggle="modal" data-target="#'+element.a_type+'_edit_modal" data-id='+index+'>Edit</a></td></tr>';
             });
             $('#db_result_table').html(trHTML);          
         },
@@ -420,7 +451,9 @@ function db_search(){
 </script>
 <script>
 $(document).ready(function(){
-  var editModal = $("#cow_edit_modal");
+  var cowEditModal = $("#cow_edit_modal");
+  var bullEditModal = $("#bull_edit_modal");
+  var bull_id="";
   var cow_id="";
 	$(document).on("click", '#cow_edit_modal_button', function(){
 		
@@ -453,12 +486,10 @@ $(document).ready(function(){
         cow_id = json[0].cow_id;
 			}
 		});	
-		//editModal.modal($("#cow_edit_tag_input").val());
+	
 
   });
-  var enable_edit = function(){
 
-  }
   $(document).on("click", '#cow_edit_modal_save', function() {
     $.ajax({
       type:"POST",
@@ -484,12 +515,76 @@ $(document).ready(function(){
       }
     });
 
-    editModal.modal('hide');
+    cowEditModal.modal('hide');
     db_search();
     $('input[type=checkbox]').attr('checked', false);
   });
-		
-	});
+
+  $(document).on("click", '#bull_edit_modal_button', function(){	
+
+    var $row = $(this).closest("tr");
+    var $tag = $row.find("td:nth-child(2)").text();
+    var $type = $row.find("td:nth-child(3)").text();	
+    //alert($tag);
+    $.ajax({
+      type:"POST",
+      url:"PHP/pfunctions.php",
+      dataType: "json",
+      cache: false,
+      data:{
+        type: "bull_data",
+        tag_id:  $tag,
+      },
+    success: function(json){
+      if($.trim(json.error)) {alert(json.error);return;}
+      $("#bull_edit_tag_input").val(json[0].tag_id);
+      $("#bull_edit_DOB_input").val(json[0].DOB);
+      $("#bull_edit_cond_input").val(json[0].medical_cond);
+      $("#bull_edit_animal_input").val(json[0].bull_id);
+      $("#bull_edit_pasture_input").val(json[0].pasture_id);
+      $("#bull_edit_herd_input").val(json[0].herd_id);
+      $("#bull_edit_weight_input").val(json[0].weight); 
+      $("#bull_edit_castrated_input").val(json[0].castrated);
+      $("#bull_edit_index_input").val(json[0].bull_index);
+      $("#bull_edit_numSired_input").val(json[0].num_sired);   
+      bull_id = json[0].bull_id; 
+    }      
+    });
+
+  });
+
+$(document).on("click", '#bull_edit_modal_save', function() {
+    $.ajax({
+      type:"POST",
+      url:"PHP/pfunctions.php",
+      dataType:"json",
+      cache:false,
+      data: {
+        type: "bull_edit",
+        old_animal_id: bull_id,
+        new_animal_id:$("#bull_edit_animal_input").val(),
+        tag_id:       $("#bull_edit_tag_input").val(),
+        DOB:          $("#bull_edit_DOB_input").val(),
+        med_cond:     $("#bull_edit_cond_input").val(),
+        pasture:      $("#bull_edit_pasture_input").val(),
+        herd:         $("#bull_edit_herd_input").val(),
+        weight:       $("#bull_edit_weight_input").val(),
+        castrated:    $("#bull_edit_castrated_input").val(),
+        index:        $("#bull_edit_index_input").val(),
+        numSired:     $("#bull_edit_numSired_input").val(),
+      },
+      success: function(json) {
+       alert(json.message);
+      // alert("in success");
+      }
+    });
+
+    bullEditModal.modal('hide');
+    db_search();
+    //$('input[type=checkbox]').attr('checked', false);
+  });
+
+});
 
 </script>
 
@@ -497,39 +592,7 @@ $(document).ready(function(){
 
 </script>
 <script>//Have to find a way to enable these with one function
-function setActive(caller){
- // alert("in set active");
-  if(caller.checked){
-       $(caller.id).prop('disabled', false);
-     }else{
-      $(caller.id).prop('disabled', true);
-     }
-}
-/* $(function(){
-    $("#cow_edit_tag_chk").change(function(event){
-     $("#cow_edit_tag_input").prop('disabled', !$(event.target).is(':checked'));
-    });
- });*/
- $(function(){
-    $("#cow_edit_animal_chk").change(function(event){
-     $("#cow_edit_animal_input").prop('disabled', !$(event.target).is(':checked'));
-    });
- });
- $(function(){
-    $("#cow_edit_weight_chk").change(function(event){
-     $("#cow_edit_weight_input").prop('disabled', !$(event.target).is(':checked'));
-    });
- });
- $(function(){
-    $("#cow_edit_cond_chk").change(function(event){
-     $("#cow_edit_cond_input").prop('disabled', !$(event.target).is(':checked'));
-    });
- });
- $(function(){
-    $("#cow_edit_dued_chk").change(function(event){
-     $("#cow_edit_dued_input").prop('disabled', !$(event.target).is(':checked'));
-    });
- });
+
 </script>
 <script>
 

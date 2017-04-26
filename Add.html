@@ -281,9 +281,9 @@ include_once 'PHP/pfunctions.php'
 		</div> 
 		</li>		
 		<li id="li_3" >
-		<label class="description" for="element_3">Herd</label>
+		<label class="description" for="element_3">Cow ID</label>
 		<div>
-			<input id="herd" name="element_3" class="element text medium" type="numeric" maxlength="255" value=""/> 
+			<input id="cow_id" name="element_3" class="element text medium" type="numeric" maxlength="255" value=""/> 
 		</div> 
 		</li>		
 		<li id="li_4" >
@@ -293,9 +293,9 @@ include_once 'PHP/pfunctions.php'
 		</div> 
 		</li>		
 		<li id="li_5" >
-		<label class="description" for="element_5">Weight </label>
+		<label class="description" for="element_5">Herd </label>
 		<div>
-			<input id="weight" name="element_5" class="element text medium" type="numeric" maxlength="255" value=""/> 
+			<input id="herd" name="element_5" class="element text medium" type="numeric" maxlength="255" value=""/> 
 		</div> 
 		</li>		
 		<li id="li_6" >
@@ -320,7 +320,13 @@ include_once 'PHP/pfunctions.php'
 		<div>
 			<input id="due_date" name="element_9" class="element text medium" type="date" maxlength="255" value=""/> 
 		</div> 
-		</li>	
+		</li>
+		<li id="li_9" >
+		<label class="description" for="element_10">Weight</label>
+		<div>
+			<input id="weight" name="element_10" class="element text medium" type="date" maxlength="255" value=""/> 
+		</div> 
+		</li>		
 			
 					<li class="buttons">
 			    <input type="hidden" name="form_id" value="25161" />
@@ -345,6 +351,7 @@ include_once 'PHP/pfunctions.php'
       data: {
         type: "cow_add",
         new_animal_id: $("#rfid_id").val(),
+        cow_id: $("#cow_id").val(),
         due_date: $("#due_date").val(),
         tag_id: $("#animal_id").val(),
         pregnant: $("#prego").val(),

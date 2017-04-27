@@ -24,7 +24,7 @@ class Feeder(Base):
 	ref_id = Column(Integer, primary_key=True)
 	num_visits = Column(Integer)
 	last_visit_date = Column("last_visit_date", DateTime)
-	
+
 class Cow(Base):
 	__tablename__='cow'
 	cow_id = Column(Integer, primary_key=True)
@@ -34,7 +34,7 @@ class Cow(Base):
 	calving_cond = Column(String)
 	calving_ease = Column(Integer)
 	calf_bonding = Column(Integer)
-	
+
 class Animal(Base):
 	__tablename__='animal'
 	animal_id = Column(Integer,primary_key=True)
@@ -58,14 +58,14 @@ class t2(Base):
 	tag_id = Column(Integer)
 	due_date = Column(DateTime)
 	past = Column(Integer)
-	
+
 class t3(Base):
 	__tablename__ = 't3'
 	cow_id = Column(Integer,primary_key=True)
 	tag_id = Column(Integer)
 	due_date = Column(DateTime)
 	past = Column(Integer)
-	
+
 def createBody():
 	fmt='%H:%M:%S %m-%d-%Y '
 	feed = []
@@ -81,7 +81,7 @@ def createBody():
 FROM                                                         \
   feeder                                                     \
 JOIN                                                         \
-  animal ON feeder.ref_id = animal.tag_id                 \
+  animal ON feeder.ref_id = animal.rfid                 \
 WHERE                                                        \
   feeder.last_visit_date <= DATE_ADD(DATE(NOW()),            \
   INTERVAL -3 DAY)")
@@ -90,7 +90,7 @@ WHERE                                                        \
 		next = "Tag: "
 		id = str(Animal.tag_id)
 		next += id
-		
+
 		next += "   Last Visit: "
 		next += str((Feeder.last_visit_date).strftime(fmt))
 		date = Feeder.last_visit_date
@@ -102,10 +102,10 @@ WHERE                                                        \
 		for row in feed:
 			body += "\n"
 			body += row
-	
-	
-	
-	
+
+
+
+
 	stmt3 = text("SELECT                                                  \
   `tag_id`,                                                               \
   `due_date`,															  \
@@ -115,7 +115,7 @@ FROM                                                                      \
 JOIN                                                                      \
   `animal` ON cow.cow_id = animal.animal_id                               \
 WHERE                                                                     \
-  `due_date` = DATE(NOW()) AND `pregnant` = 0x1					  \
+  `due_date` = DATE(NOW()) AND `pregnant` = 1					  \
 ORDER BY																  \
   `past` DESC")
 	stmt3 = stmt3.columns(t3.tag_id, t3.due_date, t3.past)
@@ -124,7 +124,7 @@ ORDER BY																  \
 		id = str(t3.tag_id)
 		next += id
 		today.append(next)
-		
+
 	body += "\n\nCows due today: "
 	if not today:
 		body += "\nNothing!"
@@ -132,7 +132,7 @@ ORDER BY																  \
 		for row in today:
 			body += "\n"
 			body += row
-	
+
 	fmt='%m-%d-%Y'
 	stmt1 = text("SELECT                                                                   \
   `tag_id`,                                                                                \
@@ -149,7 +149,7 @@ FROM                                                                            
 JOIN                                                                                       \
   `animal` ON cow.cow_id = animal.animal_id                                                \
 WHERE                                                                                      \
-  `due_date` > DATE(NOW()) AND `due_date` <= (DATE(NOW())+7) AND `pregnant` = 0x1)         \
+  `due_date` > DATE(NOW()) AND `due_date` <= (DATE(NOW())+7) AND `pregnant` = 1)         \
   AS t1																					   \
 ORDER BY																				   \
   `num` ASC")
@@ -170,7 +170,7 @@ ORDER BY																				   \
 		for row in preg:
 			body += "\n"
 			body += row
-		
+
 	stmt2 = text("SELECT                                                  \
   `tag_id`,                                                               \
   `due_date`,															  \
@@ -180,7 +180,7 @@ FROM                                                                      \
 JOIN                                                                      \
   `animal` ON cow.cow_id = animal.animal_id                               \
 WHERE                                                                     \
-  `due_date` < DATE(NOW()) AND `pregnant` = 0x1					  \
+  `due_date` < DATE(NOW()) AND `pregnant` = 1					  \
 ORDER BY																  \
   `past` DESC")
 	stmt2 = stmt2.columns(t2.tag_id, t2.due_date, t2.past)
@@ -193,7 +193,7 @@ ORDER BY																  \
 		next += "   Due Date: "
 		next += str((t2.due_date).strftime(fmt))
 		past_due.append(next)
-		
+
 	body += "\n\nCows past due: "
 	if not past_due:
 		body += "\nNothing!"
@@ -201,10 +201,10 @@ ORDER BY																  \
 		for row in past_due:
 			body += "\n"
 			body += row
-	
+
 	return body
-	
-	
+
+
 def sendEmail(bod):
 	fromaddr = "cattletrackernotifications@gmail.com"
 	toaddr = "cousinoc@gmail.com"
@@ -212,10 +212,10 @@ def sendEmail(bod):
 	msg['From'] = fromaddr
 	msg['To'] = toaddr
 	msg['Subject'] = "Daily Email"
-	
+
 	body = bod
 	msg.attach(MIMEText(body, 'plain'))
-	
+
 	server = smtplib.SMTP('smtp.gmail.com', 587)
 	server.ehlo()
 	server.starttls()
@@ -223,13 +223,13 @@ def sendEmail(bod):
 	server.login("Cattletrackernotifications", "Tracker2017")
 	text = msg.as_string()
 	server.sendmail(fromaddr, toaddr, text)
-	
+
 
 def main():
-	
+
 	body = createBody()
 	sendEmail(body)
-	
-	
+
+
 if __name__ == "__main__":
 	main()

@@ -291,8 +291,7 @@ include_once 'PHP/pfunctions.php'
       <a href="Database.html">Database</a>
       <ul class="animenu__nav__child">
         <li><a href="Database.html">Search</a></li>
-        <li><a href="Add.html">Add Cow</a></li>
-        <li><a href="Edit.html">Edit Cow</a></li>
+        <li><a href="Vaccines.html">Vaccines</a></li>
       </ul>
     </li>                
   </ul>
@@ -301,20 +300,79 @@ include_once 'PHP/pfunctions.php'
 
     
     <!-- type number does not seem to work in mozilla on linux -->
-RFID ID <input type="number" min="0" step="1" id="db_tag_input" onkeyup="db_search()" autofocus placeholder="Search for Tag ID..">
-Animal ID <input type="number" min="0" step="1" id="db_animal_input" onkeyup="db_search()">
-Herd <input type="number" min="0" step="1" id="db_herd_input" onkeyup="db_search()">
-Pasture <input type="number" min="0" step="1" id="db_pasture_input" onkeyup="db_search()">
-<br>
-Type: <select id="db_type_select" onchange="db_search()">
-	<option value="">All</option>
-	<option value="cow" >Cow</option>
-	<option value="bull" >Bull</option>
-	<option value="calf" >Calf</option>
-</select>
+<div class="db_input">
+  RFID ID <input type="number" min="0" step="1" id="db_tag_input" onkeyup="db_search()" autofocus placeholder="Search for Tag ID..">
+  Animal ID <input type="number" min="0" step="1" id="db_animal_input" onkeyup="db_search()">
+  Herd <input type="number" min="0" step="1" id="db_herd_input" onkeyup="db_search()">
+  Pasture <input type="number" min="0" step="1" id="db_pasture_input" onkeyup="db_search()">
+  <button type="button" id="animal_clear" class="clear_fields">Clear Fields</button>
+  <br>
+  Type: <select id="db_type_select" onchange="db_search()">
+  	<option value="">All</option>
+  	<option value="cow" >Cow</option>
+  	<option value="bull" >Bull</option>
+  	<option value="calf" >Calf</option>
+  </select>
+  <button type="button" id="animal_add_button" onclick="add_animal()">Add Animal</button>
+</div>
  <table id="db_result_table">
 
-</table>    
+</table>  
+<div>
+<div>
+<div class="modal fade" id="cow_add_modal" tabindex="-1" role="dialog" data-width="760" aria-labelledby="cow_add_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="cow_add_modal_label">Add Cow</h4>
+        </div>
+        <div class="modal-body">
+          <div class = "row-fluid">
+            <div class="span5">
+              <h5>Tag Number</h5>
+              <p><input type="number" id="cow_add_tag_input"  value=""></input>
+              </p>
+              <h5>Animal ID</h5>
+              <p><input type="number" id="cow_add_animal_input"  value=""></input>
+              </p>
+              <h5>RFID</h5>
+              <p><input type="number" id="cow_add_rfid_input"  value=""></input>
+              </p>
+              <h5>Herd</h5>
+              <p><input type="number" id="cow_add_herd_input"  value=""></input>
+        </p>
+  
+              <h5>Pasture</h5>
+              <p><input type="number" id="cow_add_pasture_input"  value=""></input>
+              </p>
+
+
+              <h5>Weight</h5>
+              <p><input type="number" id="cow_add_weight_input"  value=""></input>
+              </p>
+              <h5>Date of Birth (yyyy-mm-dd)</h5>
+              <p><input type="date" id="cow_add_DOB_input" name="cow_DOB"  value=""></input>
+              </p>
+              <h5>Medical Condition</h5>
+              <p><textarea name="Text1" id="cow_add_cond_input"  cols="40" rows="5"value=""></textarea>
+              </p>
+              <h5>Pregnant</h5>
+              <p><input type="number" id="cow_add_preg_input"  value=""></input>
+              </p>
+              <h5>Due Date (yyyy-mm-dd)</h5>
+              <p><input type="date" id="cow_add_dued_input"  value=""></input>
+              </p>              
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="cow_add_modal_save">Save changes</button>
+          </div>
+        </div>
+      </div>
+</div>
+</div>  
 <div>
 <div>
 <div class="modal fade" id="cow_edit_modal" tabindex="-1" role="dialog" data-width="760" aria-labelledby="cow_edit_modal" aria-hidden="true">
@@ -327,15 +385,19 @@ Type: <select id="db_type_select" onchange="db_search()">
 				<div class="modal-body">
 					<div class = "row-fluid">
 						<div class="span5">
-							<h5>RFID Tag</h5>
+							<h5>Tag Number</h5>
 							<p><input type="number" id="cow_edit_tag_input" disabled value=""></input>
               <input type="checkbox" id="cow_edit_tag_chk" onclick = "document.getElementById('cow_edit_tag_input').disabled=!this.checked;" /></p>
 							<h5>Animal ID</h5>
 							<p><input type="number" id="cow_edit_animal_input" disabled value=""></input>
               <input type="checkbox" id="cow_edit_animal_chk" onclick = "document.getElementById('cow_edit_animal_input').disabled=!this.checked;" /></p>
+							<h5>RFID</h5>
+							<p><input type="number" id="cow_edit_rfid_input" disabled value=""></input>
+              <input type="checkbox" id="cow_rfid_herd_chk" onclick = "document.getElementById('cow_edit_rfid_input').disabled=!this.checked;" /></p>
 							<h5>Herd</h5>
 							<p><input type="number" id="cow_edit_herd_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_herd_chk" onclick = "document.getElementById('cow_edit_herd_input').disabled=!this.checked;" /></p>
+				<input type="checkbox" id="cow_edit_herd_chk" onclick = "document.getElementById('cow_edit_herd_input').disabled=!this.checked;" /></p>
+	
 							<h5>Pasture</h5>
 							<p><input type="number" id="cow_edit_pasture_input" disabled value=""></input>
               <input type="checkbox" id="cow_edit_pasture_chk" onclick = "document.getElementById('cow_edit_pasture_input').disabled=!this.checked;" /></p>
@@ -378,12 +440,15 @@ Type: <select id="db_type_select" onchange="db_search()">
         <div class="modal-body">
           <div class = "row-fluid">
             <div class="span5">
-              <h5>RFID Tag</h5>
+              <h5>Tag Number</h5>
               <p><input type="number" id="bull_edit_tag_input" disabled value=""></input>
               <input type="checkbox" id="bull_edit_tag_chk" onclick = "document.getElementById('bull_edit_tag_input').disabled=!this.checked;" /></p>
               <h5>Animal ID</h5>
               <p><input type="number" id="bull_edit_animal_input" disabled value=""></input>
               <input type="checkbox" id="bull_edit_animal_chk" onclick = "document.getElementById('bull_edit_animal_input').disabled=!this.checked;" /></p>
+              <h5>RFID</h5>
+              <p><input type="number" id="bull_edit_rfid_input" disabled value=""></input>
+              <input type="checkbox" id="bull_edit_rfid_chk" onclick = "document.getElementById('bull_edit_rfid_input').disabled=!this.checked;" /></p>
               <h5>Herd</h5>
               <p><input type="number" id="bull_edit_herd_input" disabled value=""></input>
               <input type="checkbox" id="bull_edit_herd_chk" onclick = "document.getElementById('bull_edit_herd_input').disabled=!this.checked;" /></p>
@@ -405,10 +470,10 @@ Type: <select id="db_type_select" onchange="db_search()">
               <p><input type="number" id="bull_edit_castrated_input" disabled value=""></input>
               <input type="checkbox" id="bull_edit_castrated_chk" onclick = "document.getElementById('bull_edit_castrated_input').disabled=!this.checked;"/></p>
               <h5>Number of calves sired</h5>
-              <p><input type="date" id="bull_edit_numSired_input" disabled value=""></input>
+              <p><input type="number" id="bull_edit_numSired_input" disabled value=""></input>
               <input type="checkbox" id="bull_edit_numSired_chk" onclick = "document.getElementById('bull_edit_numSired_input').disabled=!this.checked;"/></p>   
               <h5>Body Index</h5>
-              <p><input type="date" id="bull_edit_index_input" disabled value=""></input>
+              <p><input type="number" id="bull_edit_index_input" disabled value=""></input>
               <input type="checkbox" id="bull_edit_index_chk" onclick = "document.getElementById('bull_edit_index_input').disabled=!this.checked;"/></p>           
           </div>
         </div>
@@ -433,12 +498,15 @@ Type: <select id="db_type_select" onchange="db_search()">
         <div class="modal-body">
           <div class = "row-fluid">
             <div class="span5">
-              <h5>RFID Tag</h5>
+              <h5>Tag Number</h5>
               <p><input type="number" id="calf_edit_tag_input" disabled value=""></input>
               <input type="checkbox" id="calf_edit_tag_chk" onclick = "document.getElementById('calf_edit_tag_input').disabled=!this.checked;" /></p>
               <h5>Animal ID</h5>
               <p><input type="number" id="calf_edit_animal_input" disabled value=""></input>
               <input type="checkbox" id="calf_edit_animal_chk" onclick = "document.getElementById('calf_edit_animal_input').disabled=!this.checked;" /></p>
+              <h5>RFID</h5>
+              <p><input type="number" id="calf_edit_rfid_input" disabled value=""></input>
+              <input type="checkbox" id="calf_edit_rfid_chk" onclick = "document.getElementById('calf_edit_rfid_input').disabled=!this.checked;" /></p>
               <h5>Herd</h5>
               <p><input type="number" id="calf_edit_herd_input" disabled value=""></input>
               <input type="checkbox" id="calf_edit_herd_chk" onclick = "document.getElementById('calf_edit_herd_input').disabled=!this.checked;" /></p>
@@ -511,6 +579,63 @@ function db_search(){
 }
 </script>
 <script>
+$("#cow_add_modal").on('hide.bs.modal', function() {
+  $(this).find('input, textarea, select').val('').end()
+  .find("input[type=checkbox]").prop("checked", "").end();
+});
+$("#cow_edit_modal").on('hide.bs.modal', function() {
+  $(this).find('input, textarea, select').val('').end()
+  .find("input[type=checkbox]").prop("checked", "").end();
+});
+</script>
+<script>
+
+
+function add_animal(){
+  var cowAddModal = $("#cow_add_modal");
+  //var bulladdModal = $("#bull_add_modal");
+  //var calfaddModal = $("#calf_add_modal");
+  //var bull_id="";
+  var cow_id="";
+  //var calf_id="";
+
+    cowAddModal.modal();
+    var $row = $(this).closest("tr");
+    var $tag = $row.find("td:nth-child(2)").text();
+    var $type = $row.find("td:nth-child(3)").text();
+    
+    
+  $(document).on("click", '#cow_add_modal_save', function() {
+    $.ajax({
+      type:"POST",
+      url:"PHP/pfunctions.php",
+      dataType:"json",
+      cache:false,
+      data: {
+        type: "cow_add",
+        new_animal_id:  $("#cow_add_animal_input").val(),
+        due_date:       $("#cow_add_dued_input").val(),
+        tag_id:         $("#cow_add_tag_input").val(),
+        pregnant:       $("#cow_add_preg_input").val(),
+        DOB:            $("#cow_add_DOB_input").val(),
+        med_cond:       $("#cow_add_cond_input").val(),
+        pasture:        $("#cow_add_pasture_input").val(),
+        herd:           $("#cow_add_herd_input").val(),
+        weight:         $("#cow_add_weight_input").val(),
+        rfid:           $("#cow_add_rfid_input").val(),
+      },
+      success: function(json) {
+       alert(json.message);
+      // alert("in success");
+      }
+    });
+    cowAddModal.modal('hide');
+    //db_search();
+    $('.modal-dialog input[type="text"]').val('');
+  });
+};
+</script>
+<script>
 $(document).ready(function(){
   var cowEditModal = $("#cow_edit_modal");
   var bullEditModal = $("#bull_edit_modal");
@@ -537,10 +662,11 @@ $(document).ready(function(){
 			},
 			success: function(json){
 				if($.trim(json.error)) {alert(json.error);return;}
+		$("#cow_edit_rfid_input").val(json[0].rfid);
         $("#cow_edit_tag_input").val(json[0].tag_id);
         $("#cow_edit_dued_input").val(json[0].due_date);
         $("#cow_edit_preg_input").val(json[0].pregnant);
-				$("#cow_edit_DOB_input").val(json[0].DOB);
+		$("#cow_edit_DOB_input").val(json[0].DOB);
         $("#cow_edit_cond_input").val(json[0].medical_cond);
         $("#cow_edit_animal_input").val(json[0].cow_id);
         $("#cow_edit_pasture_input").val(json[0].pasture_id);
@@ -571,6 +697,7 @@ $(document).ready(function(){
         pasture: $("#cow_edit_pasture_input").val(),
         herd: $("#cow_edit_herd_input").val(),
         weight: $("#cow_edit_weight_input").val(),
+        rfid: $("#cow_edit_rfid_input").val(),
       },
       success: function(json) {
        alert(json.message);
@@ -600,6 +727,7 @@ $(document).ready(function(){
       },
     success: function(json){
       if($.trim(json.error)) {alert(json.error);return;}
+      $("#bull_edit_rfid_input").val(json[0].rfid);
       $("#bull_edit_tag_input").val(json[0].tag_id);
       $("#bull_edit_DOB_input").val(json[0].DOB);
       $("#bull_edit_cond_input").val(json[0].medical_cond);
@@ -635,6 +763,7 @@ $(document).on("click", '#bull_edit_modal_save', function() {
         castrated:    $("#bull_edit_castrated_input").val(),
         index:        $("#bull_edit_index_input").val(),
         numSired:     $("#bull_edit_numSired_input").val(),
+        rfid: 	 	  $("#bull_edit_rfid_input").val(),
       },
       success: function(json) {
        alert(json.message);
@@ -663,6 +792,7 @@ $(document).on("click", '#bull_edit_modal_save', function() {
       },
     success: function(json){
       if($.trim(json.error)) {alert(json.error);return;}
+      $("#calf_edit_rfid_input").val(json[0].rfid);
       $("#calf_edit_tag_input").val(json[0].tag_id);
       $("#calf_edit_DOB_input").val(json[0].DOB);
       $("#calf_edit_cond_input").val(json[0].medical_cond);
@@ -700,7 +830,8 @@ $(document).on("click", '#calf_edit_modal_save', function() {
         sex:          $("#calf_edit_sex_input").val(),
         bodyIndex:    $("#calf_edit_bodyIndex_input").val(),
         weanWeight:   $("#calf_edit_weanWeight_input").val(),
-        weanIndex:    $("#calf_edit_weanIndex_input").val(),  
+        weanIndex:    $("#calf_edit_weanIndex_input").val(), 
+        rfid: 		  $("#calf_edit_rfid_input").val(),  
       },
       success: function(json) {
        alert(json.message);

@@ -437,6 +437,72 @@ include_once 'PHP/pfunctions.php'
 
 <div>
 <div>
+<div class="modal fade" id="calf_add_modal" tabindex="-1" role="dialog" data-width="760" aria-labelledby="calf_add_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="calf_add_modal_label">Add Calf</h4>
+        </div>
+        <div class="modal-body">
+          <div class = "row-fluid">
+            <div class="span5">
+              <h5>Tag Number</h5>
+              <p><input type="number" id="calf_add_tag_input"  value=""></input>
+              </p>
+              <h5>Animal ID</h5>
+              <p><input type="number" id="calf_add_animal_input"  value=""></input>
+              </p>
+              <h5>RFID</h5>
+              <p><input type="number" id="calf_add_rfid_input"  value=""></input>
+              </p>
+              <h5>Herd</h5>
+              <p><input type="number" id="calf_add_herd_input"  value=""></input>
+        </p>
+
+              <h5>Pasture</h5>
+              <p><input type="number" id="calf_add_pasture_input"  value=""></input>
+              </p>
+
+
+              <h5>Weight</h5>
+              <p><input type="number" id="calf_add_weight_input"  value=""></input>
+              </p>
+              <h5>Date of Birth (yyyy-mm-dd)</h5>
+              <p><input type="date" id="calf_add_DOB_input" name="cow_DOB"  value=""></input>
+              </p>
+              <h5>Medical Condition</h5>
+              <p><textarea name="Text1" id="calf_add_cond_input"  cols="40" rows="5"value=""></textarea>
+              </p>
+              <h5>Birth Weight</h5>
+              <p><input type="number" id="calf_add_birthweight_input"  value=""></input>
+              </p>
+              <h5>Sex</h5>
+              <p><input type="text" id="calf_add_sex_input"  value=""></input>
+              </p>
+              <h5>Body Index</h5>
+              <p><input type="number" id="calf_add_index_input"  value=""></input>
+              </p>
+              <h5>Wean Weight</h5>
+              <p><input type="number" id="calf_add_weanWeight_input"  value=""></input>
+              </p>
+              <h5>Wean Index</h5>
+              <p><input type="number" id="calf_add_weanIndex_input"  value=""></input>
+              </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="calf_add_modal_save">Save changes</button>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+
+
+<div>
+<div>
 <div class="modal fade" id="cow_edit_modal" tabindex="-1" role="dialog" data-width="760" aria-labelledby="cow_edit_modal" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -660,6 +726,18 @@ $("#bull_edit_modal").on('hide.bs.modal', function() {
   .find("input[type=checkbox]").prop("checked", "").end();
 });
 </script>
+
+<script>
+$("#calf_add_modal").on('hide.bs.modal', function() {
+  $(this).find('input, textarea, select').val('').end()
+  .find("input[type=checkbox]").prop("checked", "").end();
+});
+$("#calf_edit_modal").on('hide.bs.modal', function() {
+  $(this).find('input, textarea, select').val('').end()
+  .find("input[type=checkbox]").prop("checked", "").end();
+});
+</script>
+
 <script>
 
 
@@ -750,6 +828,53 @@ function add_bull(){
   });
   };
 </script>
+
+<script>
+function add_calf(){
+
+  var calfaddModal = $("#calf_add_modal");
+  var calf_id="";
+
+  calfaddModal.modal();
+  var $row = $(this).closest("tr");
+  var $tag = $row.find("td:nth-child(2)").text();
+  var $type = $row.find("td:nth-child(3)").text();
+
+
+  $(document).on("click", '#calf_add_modal_save', function() {
+  $.ajax({
+    type:"POST",
+    url:"PHP/pfunctions.php",
+    dataType:"json",
+    cache:false,
+    data: {
+      type: "calf_add",
+      new_animal_id:  $("#calf_add_animal_input").val(),
+      tag_id:         $("#calf_add_tag_input").val(),
+      DOB:            $("#calf_add_DOB_input").val(),
+      med_cond:       $("#calf_add_cond_input").val(),
+      pasture:        $("#calf_add_pasture_input").val(),
+      herd:           $("#calf_add_herd_input").val(),
+      weight:         $("#calf_add_weight_input").val(),
+      rfid:           $("#calf_add_rfid_input").val(),
+      index:          $("#calf_add_index_input").val(),
+      birth_weight:   $("#calf_add_birthweight_input").val(),
+      sex:            $("#calf_add_sex_input").val(),
+      wean_weight:    $("#calf_add_weanWeight_input").val(),
+      wean_index:     $("#calf_add_weanIndex_input").val(),
+    },
+    success: function(json) {
+     alert(json.message);
+    // alert("in success");
+    }
+  });
+  calfaddModal.modal('hide');
+  //db_search();
+  $('.modal-dialog input[type="text"]').val('');
+  });
+  };
+</script>
+
 <script>
 $(document).ready(function(){
   var cowEditModal = $("#cow_edit_modal");

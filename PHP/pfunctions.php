@@ -40,6 +40,9 @@
 	if($type == 'bull_add'){
 		bull_add();
 	}
+	if($type == 'calf_add'){
+		calf_add();
+	}
 
 	function login(){
 		//$host="149.149.150.136";
@@ -187,6 +190,50 @@
 
 		$stmt2 = $db->prepare($q2);
 		$stmt2->execute(array(":animal_id"=> $new_animal_id, ":castrated"=>$castrated, ":num_sired"=>$sired, ":bull_index"=>$index));
+
+		$stmt3 = $db->prepare($q3);
+		$stmt3->execute(array(":animal_id"=>$new_animal_id, ":weight"=>$weight, ":DOB"=>$DOB, ":medical_cond"=>$med_cond));
+
+
+
+		print json_encode($return);
+	}catch(PDOException $e){
+		$return = array('message' => $e->getMessage());
+		print json_encode($return);
+		}
+
+
+	}
+
+
+	function calf_add(){
+		$db=login();
+		$return = array('message' =>'Calf Saved!');
+		$new_animal_id = $_POST['new_animal_id'];
+		$tag_id = $_POST['tag_id'];
+		$DOB = date('Y-m-d', strtotime($_POST['DOB']));
+		$med_cond = $_POST['med_cond'];
+		$pasture = $_POST['pasture'];
+		$herd = $_POST['herd'];
+		$weight = $_POST['weight'];
+		$rfid = $_POST['rfid'];
+		$index = $_POST['index'];
+		$birth_weight = $_POST['birth_weight'];
+		$sex = $_POST['sex'];
+		$wean_weight = $_POST['wean_weight'];
+		$wean_index = $_POST['wean_index'];
+		$a_type = "calf";
+
+		$q1 = 'insert into animal(animal_id, tag_id, herd_id, pasture_id, rfid, a_type) values (:animal_id, :tag_id, :herd_id, :pasture_id, :rfid, :a_type)';
+		$q2 = 'insert into calf(calf_id, sex, birth_weight, body_index, wean_index, wean_weight) values (:animal_id, :sex, :birth_weight, :index, :wean_weight, :wean_index)';
+		$q3 = 'insert into vitals(vital_id, weight, DOB, medical_cond) values (:animal_id, :weight, :DOB, :medical_cond)';
+
+	try{
+		$stmt1 = $db->prepare($q1);
+		$stmt1->execute(array(":animal_id"=>$new_animal_id,":tag_id"=>$tag_id, ":herd_id"=>$herd, ":pasture_id"=>$pasture, ":rfid"=>$rfid, ":a_type"=>$a_type));
+
+		$stmt2 = $db->prepare($q2);
+		$stmt2->execute(array(":animal_id"=> $new_animal_id, ":sex"=>$sex, ":birth_weight"=>$birth_weight, ":index"=>$index, ":wean_weight"=>$wean_weight, ":wean_index"=>$wean_index));
 
 		$stmt3 = $db->prepare($q3);
 		$stmt3->execute(array(":animal_id"=>$new_animal_id, ":weight"=>$weight, ":DOB"=>$DOB, ":medical_cond"=>$med_cond));

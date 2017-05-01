@@ -193,7 +193,7 @@ include_once 'PHP/pfunctions.php'
 
   .animenu__nav__child {
     position: static;
-    background-color: #FFDD00; 
+    background-color: #FFDD00;
     margin: 0;
     transition: none;
     visibility: visible;
@@ -241,7 +241,7 @@ include_once 'PHP/pfunctions.php'
 
 #myTable tr {
     /* Add a bottom border to all table rows */
-    border-bottom: 1px solid #ddd; 
+    border-bottom: 1px solid #ddd;
 }
 
 #myTable tr.header, #myTable tr:hover {
@@ -257,12 +257,12 @@ include_once 'PHP/pfunctions.php'
   <script src="js/bootbox.min.js"></script>
   <script src="js/index.js"></script>
   <script src="js/jsfunctions.js"></script>
- 
+
 
 </head>
 
 <body>
-  <nav class="animenu"> 
+  <nav class="animenu">
   <button class="animenu__toggle">
     <span class="animenu__toggle__bar"></span>
     <span class="animenu__toggle__bar"></span>
@@ -278,7 +278,7 @@ include_once 'PHP/pfunctions.php'
         <li><a href="Feeder.html">Feeder Home</a></li>
         <li><a href="FeederSettings.php">Settings</a></li>
       </ul>
-    </li> 
+    </li>
     <li>
       <a href="Tracker.html">Cattle Tracker</a>
       <ul class="animenu__nav__child">
@@ -286,19 +286,19 @@ include_once 'PHP/pfunctions.php'
         <li><a href="">Create New Geofence</a></li>
         <li><a href="TrackerSettings">Settings</a></li>
       </ul>
-    </li>     
+    </li>
     <li>
       <a href="Database.html">Database</a>
       <ul class="animenu__nav__child">
         <li><a href="Database.html">Search</a></li>
         <li><a href="Vaccines.html">Vaccines</a></li>
       </ul>
-    </li>                
+    </li>
   </ul>
 </nav>
-  
 
-    
+
+
     <!-- type number does not seem to work in mozilla on linux -->
 <div class="db_input">
   RFID ID <input type="number" min="0" step="1" id="db_tag_input" onkeyup="db_search()" autofocus placeholder="Search for Tag ID..">
@@ -313,11 +313,13 @@ include_once 'PHP/pfunctions.php'
   	<option value="bull" >Bull</option>
   	<option value="calf" >Calf</option>
   </select>
-  <button type="button" id="animal_add_button" onclick="add_animal()">Add Animal</button>
+  <button type="button" id="cow_add_button" onclick="add_cow()">Add cow</button>
+  <button type="button" id="bull_add_button" onclick="add_bull()">Add bull</button>
+  <button type="button" id="calf_add_button" onclick="add_calf()">Add calf</button>
 </div>
  <table id="db_result_table">
 
-</table>  
+</table>
 <div>
 <div>
 <div class="modal fade" id="cow_add_modal" tabindex="-1" role="dialog" data-width="760" aria-labelledby="cow_add_modal" aria-hidden="true">
@@ -342,7 +344,7 @@ include_once 'PHP/pfunctions.php'
               <h5>Herd</h5>
               <p><input type="number" id="cow_add_herd_input"  value=""></input>
         </p>
-  
+
               <h5>Pasture</h5>
               <p><input type="number" id="cow_add_pasture_input"  value=""></input>
               </p>
@@ -362,7 +364,7 @@ include_once 'PHP/pfunctions.php'
               </p>
               <h5>Due Date (yyyy-mm-dd)</h5>
               <p><input type="date" id="cow_add_dued_input"  value=""></input>
-              </p>              
+              </p>
           </div>
         </div>
         <div class="modal-footer">
@@ -372,7 +374,67 @@ include_once 'PHP/pfunctions.php'
         </div>
       </div>
 </div>
-</div>  
+</div>
+
+<div>
+<div>
+<div class="modal fade" id="bull_add_modal" tabindex="-1" role="dialog" data-width="760" aria-labelledby="bull_add_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="bull_add_modal_label">Add Bull</h4>
+        </div>
+        <div class="modal-body">
+          <div class = "row-fluid">
+            <div class="span5">
+              <h5>Tag Number</h5>
+              <p><input type="number" id="bull_add_tag_input"  value=""></input>
+              </p>
+              <h5>Animal ID</h5>
+              <p><input type="number" id="bull_add_animal_input"  value=""></input>
+              </p>
+              <h5>RFID</h5>
+              <p><input type="number" id="bull_add_rfid_input"  value=""></input>
+              </p>
+              <h5>Herd</h5>
+              <p><input type="number" id="bull_add_herd_input"  value=""></input>
+        </p>
+
+              <h5>Pasture</h5>
+              <p><input type="number" id="bull_add_pasture_input"  value=""></input>
+              </p>
+
+
+              <h5>Weight</h5>
+              <p><input type="number" id="bull_add_weight_input"  value=""></input>
+              </p>
+              <h5>Date of Birth (yyyy-mm-dd)</h5>
+              <p><input type="date" id="bull_add_DOB_input" name="cow_DOB"  value=""></input>
+              </p>
+              <h5>Medical Condition</h5>
+              <p><textarea name="Text1" id="bull_add_cond_input"  cols="40" rows="5"value=""></textarea>
+              </p>
+              <h5>Castrated?</h5>
+              <p><input type="number" id="bull_add_castrated_input"  value=""></input>
+              </p>
+              <h5>Number of calves sired</h5>
+              <p><input type="number" id="bull_add_numSired_input"  value=""></input>
+              </p>
+              <h5>Body Index</h5>
+              <p><input type="number" id="bull_add_index_input"  value=""></input>
+              </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="bull_add_modal_save">Save changes</button>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+
 <div>
 <div>
 <div class="modal fade" id="cow_edit_modal" tabindex="-1" role="dialog" data-width="760" aria-labelledby="cow_edit_modal" aria-hidden="true">
@@ -397,7 +459,7 @@ include_once 'PHP/pfunctions.php'
 							<h5>Herd</h5>
 							<p><input type="number" id="cow_edit_herd_input" disabled value=""></input>
 				<input type="checkbox" id="cow_edit_herd_chk" onclick = "document.getElementById('cow_edit_herd_input').disabled=!this.checked;" /></p>
-	
+
 							<h5>Pasture</h5>
 							<p><input type="number" id="cow_edit_pasture_input" disabled value=""></input>
               <input type="checkbox" id="cow_edit_pasture_chk" onclick = "document.getElementById('cow_edit_pasture_input').disabled=!this.checked;" /></p>
@@ -417,7 +479,7 @@ include_once 'PHP/pfunctions.php'
               <input type="checkbox" id="cow_edit_preg_chk" onclick = "document.getElementById('cow_edit_preg_input').disabled=!this.checked;"/></p>
 							<h5>Due Date (yyyy-mm-dd)</h5>
 							<p><input type="date" id="cow_edit_dued_input" disabled value=""></input>
-              <input type="checkbox" id="cow_edit_dued_chk" onclick = "document.getElementById('cow_edit_dued_input').disabled=!this.checked;"/></p>							
+              <input type="checkbox" id="cow_edit_dued_chk" onclick = "document.getElementById('cow_edit_dued_input').disabled=!this.checked;"/></p>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -471,10 +533,10 @@ include_once 'PHP/pfunctions.php'
               <input type="checkbox" id="bull_edit_castrated_chk" onclick = "document.getElementById('bull_edit_castrated_input').disabled=!this.checked;"/></p>
               <h5>Number of calves sired</h5>
               <p><input type="number" id="bull_edit_numSired_input" disabled value=""></input>
-              <input type="checkbox" id="bull_edit_numSired_chk" onclick = "document.getElementById('bull_edit_numSired_input').disabled=!this.checked;"/></p>   
+              <input type="checkbox" id="bull_edit_numSired_chk" onclick = "document.getElementById('bull_edit_numSired_input').disabled=!this.checked;"/></p>
               <h5>Body Index</h5>
               <p><input type="number" id="bull_edit_index_input" disabled value=""></input>
-              <input type="checkbox" id="bull_edit_index_chk" onclick = "document.getElementById('bull_edit_index_input').disabled=!this.checked;"/></p>           
+              <input type="checkbox" id="bull_edit_index_chk" onclick = "document.getElementById('bull_edit_index_input').disabled=!this.checked;"/></p>
           </div>
         </div>
         <div class="modal-footer">
@@ -529,16 +591,16 @@ include_once 'PHP/pfunctions.php'
               <input type="checkbox" id="calf_edit_birthWeight_chk" onclick = "document.getElementById('calf_edit_birthWeight_input').disabled=!this.checked;"/></p>
               <h5>Sex</h5>
               <p><input type="text" id="calf_edit_sex_input" disabled value=""></input>
-              <input type="checkbox" id="calf_edit_sex_chk" onclick = "document.getElementById('calf_edit_sex_input').disabled=!this.checked;"/></p>   
+              <input type="checkbox" id="calf_edit_sex_chk" onclick = "document.getElementById('calf_edit_sex_input').disabled=!this.checked;"/></p>
               <h5>Body Index</h5>
               <p><input type="number" id="calf_edit_bodyIndex_input" disabled value=""></input>
-              <input type="checkbox" id="calf_edit_bodyIndex_chk" onclick = "document.getElementById('calf_edit_bodyIndex_input').disabled=!this.checked;"/></p> 
+              <input type="checkbox" id="calf_edit_bodyIndex_chk" onclick = "document.getElementById('calf_edit_bodyIndex_input').disabled=!this.checked;"/></p>
               <h5>Wean Weight</h5>
               <p><input type="number" id="calf_edit_weanWeight_input" disabled value=""></input>
               <input type="checkbox" id="calf_edit_weanWeight_chk" onclick = "document.getElementById('calf_edit_weanWeight_input').disabled=!this.checked;"/></p>
               <h5>Wean Index</h5>
               <p><input type="number" id="calf_edit_weanIndex_input" disabled value=""></input>
-              <input type="checkbox" id="calf_edit_weanIndex_chk" onclick = "document.getElementById('calf_edit_weanIndex_input').disabled=!this.checked;"/></p>           
+              <input type="checkbox" id="calf_edit_weanIndex_chk" onclick = "document.getElementById('calf_edit_weanIndex_input').disabled=!this.checked;"/></p>
           </div>
         </div>
         <div class="modal-footer">
@@ -557,7 +619,7 @@ function db_search(){
         type:"POST",
         url:"PHP/pfunctions.php",
         dataType:"json",
-        cache:false,     
+        cache:false,
         data: {
             tag_id: $("#db_tag_input").val(),
             animal_id: $("#db_animal_input").val(),
@@ -567,15 +629,15 @@ function db_search(){
             type:"db_search",
         },
         success: function(json){
-            if($.trim(json.error)) { alert(json.error); return;}  
+            if($.trim(json.error)) { alert(json.error); return;}
             trHTML = '<tr class="header"><th style="width:20%;">Tag ID</th><th style="width:20%;">Cow ID</th><th style="width:10%;">Type</th><th style="width:10%;">Herd</th><th style="width:10%;">Pasture</th><th style="width:10%;">Edit</th></tr>';
             $.each(json, function(index, element){
                 trHTML += '<tr><td>' + element.tag_id + '</td><td>' + element.animal_id + '</td><td>' +element.a_type + '</td><td>' + element.herd_id + '</td><td>' + element.pasture_id +'</td><td><a href="#'+element.a_type+'_edit_modal" class = "btn btn-sm btn-success" id="'+element.a_type+'_edit_modal_button" data-toggle="modal" data-target="#'+element.a_type+'_edit_modal" data-id='+index+'>Edit</a></td></tr>';
             });
-            $('#db_result_table').html(trHTML);          
+            $('#db_result_table').html(trHTML);
         },
     });
-    
+
 }
 </script>
 <script>
@@ -589,13 +651,23 @@ $("#cow_edit_modal").on('hide.bs.modal', function() {
 });
 </script>
 <script>
+$("#bull_add_modal").on('hide.bs.modal', function() {
+  $(this).find('input, textarea, select').val('').end()
+  .find("input[type=checkbox]").prop("checked", "").end();
+});
+$("#bull_edit_modal").on('hide.bs.modal', function() {
+  $(this).find('input, textarea, select').val('').end()
+  .find("input[type=checkbox]").prop("checked", "").end();
+});
+</script>
+<script>
 
 
-function add_animal(){
+function add_cow(){
   var cowAddModal = $("#cow_add_modal");
-  //var bulladdModal = $("#bull_add_modal");
+
   //var calfaddModal = $("#calf_add_modal");
-  //var bull_id="";
+
   var cow_id="";
   //var calf_id="";
 
@@ -603,8 +675,8 @@ function add_animal(){
     var $row = $(this).closest("tr");
     var $tag = $row.find("td:nth-child(2)").text();
     var $type = $row.find("td:nth-child(3)").text();
-    
-    
+
+
   $(document).on("click", '#cow_add_modal_save', function() {
     $.ajax({
       type:"POST",
@@ -636,6 +708,49 @@ function add_animal(){
 };
 </script>
 <script>
+function add_bull(){
+
+  var bulladdModal = $("#bull_add_modal");
+  var bull_id="";
+
+  bulladdModal.modal();
+  var $row = $(this).closest("tr");
+  var $tag = $row.find("td:nth-child(2)").text();
+  var $type = $row.find("td:nth-child(3)").text();
+
+
+  $(document).on("click", '#bull_add_modal_save', function() {
+  $.ajax({
+    type:"POST",
+    url:"PHP/pfunctions.php",
+    dataType:"json",
+    cache:false,
+    data: {
+      type: "bull_add",
+      new_animal_id:  $("#bull_add_animal_input").val(),
+      tag_id:         $("#bull_add_tag_input").val(),
+      DOB:            $("#bull_add_DOB_input").val(),
+      med_cond:       $("#bull_add_cond_input").val(),
+      pasture:        $("#bull_add_pasture_input").val(),
+      herd:           $("#bull_add_herd_input").val(),
+      weight:         $("#bull_add_weight_input").val(),
+      rfid:           $("#bull_add_rfid_input").val(),
+      castrated:      $("#bull_add_castrated_input").val(),
+      sired:          $("#bull_add_numSired_input").val(),
+      index:          $("#bull_add_index_input").val(),
+    },
+    success: function(json) {
+     alert(json.message);
+    // alert("in success");
+    }
+  });
+  bulladdModal.modal('hide');
+  //db_search();
+  $('.modal-dialog input[type="text"]').val('');
+  });
+  };
+</script>
+<script>
 $(document).ready(function(){
   var cowEditModal = $("#cow_edit_modal");
   var bullEditModal = $("#bull_edit_modal");
@@ -644,11 +759,11 @@ $(document).ready(function(){
   var cow_id="";
   var calf_id="";
 	$(document).on("click", '#cow_edit_modal_button', function(){
-		
+
 		var $row = $(this).closest("tr");
 		var $tag = $row.find("td:nth-child(2)").text();
 		var $type = $row.find("td:nth-child(3)").text();
-		
+
 		$type += "_data";
 		$.ajax({
 
@@ -674,8 +789,8 @@ $(document).ready(function(){
         $("#cow_edit_weight_input").val(json[0].weight);
         cow_id = json[0].cow_id;
 			}
-		});	
-	
+		});
+
 
   });
 
@@ -710,11 +825,11 @@ $(document).ready(function(){
     $('input:checkbox').prop('checked', false);
   });
 
-  $(document).on("click", '#bull_edit_modal_button', function(){	
+  $(document).on("click", '#bull_edit_modal_button', function(){
 
     var $row = $(this).closest("tr");
     var $tag = $row.find("td:nth-child(2)").text();
-    var $type = $row.find("td:nth-child(3)").text();	
+    var $type = $row.find("td:nth-child(3)").text();
     //alert($tag);
     $.ajax({
       type:"POST",
@@ -734,12 +849,12 @@ $(document).ready(function(){
       $("#bull_edit_animal_input").val(json[0].bull_id);
       $("#bull_edit_pasture_input").val(json[0].pasture_id);
       $("#bull_edit_herd_input").val(json[0].herd_id);
-      $("#bull_edit_weight_input").val(json[0].weight); 
+      $("#bull_edit_weight_input").val(json[0].weight);
       $("#bull_edit_castrated_input").val(json[0].castrated);
       $("#bull_edit_index_input").val(json[0].bull_index);
-      $("#bull_edit_numSired_input").val(json[0].num_sired);   
-      bull_id = json[0].bull_id; 
-    }      
+      $("#bull_edit_numSired_input").val(json[0].num_sired);
+      bull_id = json[0].bull_id;
+    }
     });
 
   });
@@ -779,7 +894,7 @@ $(document).on("click", '#bull_edit_modal_save', function() {
   $(document).on("click", '#calf_edit_modal_button', function(){
     var $row = $(this).closest("tr");
     var $tag = $row.find("td:nth-child(2)").text();
-    var $type = $row.find("td:nth-child(3)").text();  
+    var $type = $row.find("td:nth-child(3)").text();
     //alert($tag);
     $.ajax({
       type:"POST",
@@ -799,14 +914,14 @@ $(document).on("click", '#bull_edit_modal_save', function() {
       $("#calf_edit_animal_input").val(json[0].calf_id);
       $("#calf_edit_pasture_input").val(json[0].pasture_id);
       $("#calf_edit_herd_input").val(json[0].herd_id);
-      $("#calf_edit_weight_input").val(json[0].weight); 
+      $("#calf_edit_weight_input").val(json[0].weight);
       $("#calf_edit_birthWeight_input").val(json[0].birth_weight);
       $("#calf_edit_bodyIndex_input").val(json[0].body_index);
       $("#calf_edit_sex_input").val(json[0].sex);
       $("#calf_edit_weanWeight_input").val(json[0].wean_weight);
-      $("#calf_edit_weanIndex_input").val(json[0].wean_index);   
-      calf_id = json[0].calf_id; 
-    }      
+      $("#calf_edit_weanIndex_input").val(json[0].wean_index);
+      calf_id = json[0].calf_id;
+    }
     });
   });
 
@@ -830,8 +945,8 @@ $(document).on("click", '#calf_edit_modal_save', function() {
         sex:          $("#calf_edit_sex_input").val(),
         bodyIndex:    $("#calf_edit_bodyIndex_input").val(),
         weanWeight:   $("#calf_edit_weanWeight_input").val(),
-        weanIndex:    $("#calf_edit_weanIndex_input").val(), 
-        rfid: 		  $("#calf_edit_rfid_input").val(),  
+        weanIndex:    $("#calf_edit_weanIndex_input").val(),
+        rfid: 		  $("#calf_edit_rfid_input").val(),
       },
       success: function(json) {
        alert(json.message);
@@ -857,4 +972,3 @@ $(document).on("click", '#calf_edit_modal_save', function() {
 
 </script>
 </html>
-

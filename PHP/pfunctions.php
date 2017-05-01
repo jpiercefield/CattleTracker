@@ -37,6 +37,9 @@
 	if($type == 'cow_add'){
 		cow_add();
 	}
+	if($type == 'bull_add'){
+		bull_add();
+	}
 
 	function login(){
 		//$host="149.149.150.136";
@@ -63,7 +66,7 @@
 			$stmt->execute();
 			$rows = array();
 			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-				$rows[] = $row;			
+				$rows[] = $row;
 			}
 			print json_encode($rows);
 		}catch(PDOException $e){
@@ -71,7 +74,7 @@
 			print json_encode($arr);
 
 		}
-		
+
 	}
 	function search(){
 		$db = login();
@@ -153,10 +156,52 @@
 	}catch(PDOException $e){
 		$return = array('message' => $e->getMessage());
 		print json_encode($return);
-		}				
+		}
 
 
 	}
+
+	function bull_add(){
+		$db=login();
+		$return = array('message' =>'Bull Saved!');
+		$new_animal_id = $_POST['new_animal_id'];
+		$tag_id = $_POST['tag_id'];
+		$DOB = date('Y-m-d', strtotime($_POST['DOB']));
+		$med_cond = $_POST['med_cond'];
+		$pasture = $_POST['pasture'];
+		$herd = $_POST['herd'];
+		$weight = $_POST['weight'];
+		$rfid = $_POST['rfid'];
+		$castrated = $_POST['castrated'];
+		$sired = $_POST['sired'];
+		$index = $_POST['index'];
+		$a_type = "bull";
+
+		$q1 = 'insert into animal(animal_id, tag_id, herd_id, pasture_id, rfid, a_type) values (:animal_id, :tag_id, :herd_id, :pasture_id, :rfid, :a_type)';
+		$q2 = 'insert into bull(bull_id,castrated, num_sired, bull_index) values (:animal_id, :castrated, :num_sired, :bull_index)';
+		$q3 = 'insert into vitals(vital_id, weight, DOB, medical_cond) values (:animal_id, :weight, :DOB, :medical_cond)';
+
+	try{
+		$stmt1 = $db->prepare($q1);
+		$stmt1->execute(array(":animal_id"=>$new_animal_id,":tag_id"=>$tag_id, ":herd_id"=>$herd, ":pasture_id"=>$pasture, ":rfid"=>$rfid, ":a_type"=>$a_type));
+
+		$stmt2 = $db->prepare($q2);
+		$stmt2->execute(array(":animal_id"=> $new_animal_id, ":castrated"=>$castrated, ":num_sired"=>$sired, ":bull_index"=>$index));
+
+		$stmt3 = $db->prepare($q3);
+		$stmt3->execute(array(":animal_id"=>$new_animal_id, ":weight"=>$weight, ":DOB"=>$DOB, ":medical_cond"=>$med_cond));
+
+
+
+		print json_encode($return);
+	}catch(PDOException $e){
+		$return = array('message' => $e->getMessage());
+		print json_encode($return);
+		}
+
+
+	}
+
 	function cow_data(){
 		$db=login();
 		try {
@@ -168,11 +213,11 @@
 			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 				$rows[] = $row;
 			}
-			print json_encode($rows);	
+			print json_encode($rows);
 		}catch(PDOException $e){
 			$arr = array('error' => $e->getMessage());
 			print json_encode($arr);
-			}	
+			}
 	}
 	function bull_data(){
 		$db=login();
@@ -185,11 +230,11 @@
 			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 				$rows[] = $row;
 			}
-			print json_encode($rows);	
+			print json_encode($rows);
 		}catch(PDOException $e){
 			$arr = array('message' => $e->getMessage());
 			print json_encode($arr);
-			}	
+			}
 	}
 	function calf_data(){
 		$db=login();
@@ -202,16 +247,16 @@
 			while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 				$rows[] = $row;
 			}
-			print json_encode($rows);	
+			print json_encode($rows);
 		}catch(PDOException $e){
 			$arr = array('message' => $e->getMessage());
 			print json_encode($arr);
-			}	
+			}
 	}
 	function cow_edit(){
 		$db=login();
-		
-		
+
+
 		$return = array('message' =>'Changes Saved!');
 		$old_animal_id = $_POST['old_animal_id'];
 		$new_animal_id = $_POST['new_animal_id'];
@@ -246,7 +291,7 @@
 	}catch(PDOException $e){
 		$return = array('message' => $e->getMessage());
 		print json_encode($return);
-		}				
+		}
 
 	}
 
@@ -292,7 +337,7 @@
 	}catch(PDOException $e){
 		$return = array('message' => $e->getMessage());
 		print json_encode($return);
-		}				
+		}
 
 	}
 
@@ -340,11 +385,8 @@ function calf_edit(){
 	}catch(PDOException $e){
 		$return = array('message' => $e->getMessage());
 		print json_encode($return);
-		}				
+		}
 
-	}	
+	}
 
 ?>
-
-	
-  

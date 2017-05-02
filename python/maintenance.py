@@ -15,7 +15,7 @@ from sqlalchemy import exc
 from sqlalchemy import text
 
 
-engine = create_engine('mysql://chris:CattleTrax11!@149.149.150.136:3306/cattletrax', echo=False)
+engine = create_engine('mysql://root:CattleTrax11!@localhost:3306/cattletrax', echo=False)
 Base = declarative_base(engine)
 Session = sessionmaker(bind=engine, autoflush=True, autocommit=False)
 
@@ -65,6 +65,11 @@ class t3(Base):
 	tag_id = Column(Integer)
 	due_date = Column(DateTime)
 	past = Column(Integer)
+
+class user(Base):
+	__tablename__ = 'user'
+	user_id = Column(Integer, primary_key=True)
+	email = Column(String)
 
 def createBody():
 	fmt='%H:%M:%S %m-%d-%Y '
@@ -207,7 +212,9 @@ ORDER BY																  \
 
 def sendEmail(bod):
 	fromaddr = "cattletrackernotifications@gmail.com"
-	toaddr = "cousinoc@gmail.com"
+	session = Session()
+	for email in session.query(user.email, user.user_id).filter(user.user_id == 1):
+		toaddr = str(email.email)
 	msg = MIMEMultipart()
 	msg['From'] = fromaddr
 	msg['To'] = toaddr

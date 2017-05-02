@@ -3,47 +3,69 @@
 	session_start();
 
 	$type = $_POST['type'];
-	if($type == '24'){
+/*	if($type == '24'){
 		getData(1);
 	}else if($type == '7'){
 		getData(7);
 	}else if ($type == '30'){
 		getData(30);
-	}
-	if($type == 'db_search'){
+	}else if($type == 'db_search'){
 		search();
-	}
-	if($type=='cow_data') {
+	}else if($type=='cow_data') {
 		cow_data();
-	}
-	if($type == 'cow_edit'){
+	}else if($type == 'cow_edit'){
 		cow_edit();
-	}
-	if($type == 'bull_data'){
+	}else if($type == 'bull_data'){
 		bull_data();
-	}
-	if($type == 'bull_edit'){
+	}else if($type == 'bull_edit'){
 		bull_edit();
-	}
-	if($type=='calf_data'){
+	}else if($type=='calf_data'){
 		calf_data();
-	}
-	if($type=='calf_edit'){
+	}else if($type=='calf_edit'){
 		calf_edit();
-	}
-	if($type == 'vacc_search'){
+	}else if($type == 'vacc_search'){
 		vacc_search();
-	}
-	if($type == 'cow_add'){
+	}else if($type == 'cow_add'){
 		cow_add();
-	}
-	if($type == 'bull_add'){
+	}else if($type == 'bull_add'){
 		bull_add();
-	}
-	if($type == 'calf_add'){
+	}else if($type == 'calf_add'){
 		calf_add();
-	}
-
+	}else if($type == 'update_email'){
+		update_email();
+	}*/
+	switch($type) {
+		case "24":	getData(1);
+					break;
+		case "7":	getData(7);
+					break;
+		case "30":	getData(30);
+					break;
+		case "db_search":	search();
+							break;
+		case "cow_data":	cow_data();
+							break;
+		case "cow_edit":	cow_edit();
+							break;
+		case "bull_data":	bull_data();
+							break;
+		case "bull_edit":	bull_edit();
+							break;
+		case "calf_data":	calf_edit();
+							break;
+		case "calf_edit":	calf_edit();
+							break;
+		case "vacc_search":	vacc_search();
+							break;
+		case "cow_add":		cow_add();
+							break;
+		case "bull_add":	bull_add();
+							break;
+		case "calf_add":	calf_add();
+							break;
+		case "update_email": update_email();
+							break;
+	}	
 	function login(){
 		//$host="149.149.150.136";
 		//$username = "pjtinker";
@@ -111,7 +133,7 @@
 		$db=login();
 		try{  //Need to prepare statement dependent upon what values have been entered.  Tag/animal/herd/pasture
 				//can i make everything equal to % value %.  Then, if empty field, I pull all of that field
-			$stmt = $db->prepare('SELECT count(*) as count, a_type from animal where herd_id = :herd_id group by a_type');
+			$stmt = $db->prepare('SELECT count(*) as count, a_type from animal where herd_id LIKE :herd_id group by a_type');
 			$herd_id = "%".$_POST['herd_id']."%";
 			$stmt->bindParam(':herd_id', $herd_id);
 			$stmt->execute();
@@ -435,5 +457,20 @@ function calf_edit(){
 		}
 
 	}
+
+function update_email(){
+	$db = login();
+	$return = array('message' =>'Email Updated!');
+	$email = $_POST['email'];
+	$q = 'UPDATE user set email = :email where user_id = 1';
+	try{
+		$stmt = $db->prepare($q);
+		$stmt->execute(array(":email" => $email));
+		print json_encode($return);
+	}catch(PDOException $e){
+		$return = array('message' => $e->getMessage());
+		print json_encode($return);		
+	}
+}
 
 ?>

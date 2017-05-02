@@ -329,12 +329,14 @@ function vacc_search(){
         },
         success: function(json){
             if($.trim(json.error)) { alert(json.error); return;}  
-            trHTML = '<tr class="header"><th style="width:20%;">Herd</th><th style="width:20%;">Number of Cows</th><th style="width:10%;">Number of Bulls</th><th style="width:10%;">Number of Calves</th></tr>';
+            trHTML = '<tr class="header">';
             var results = [];
+            
             $.each(json, function(index, element){
-               results.push(element.count); 
+              
+              trHTML += '<th> Number of '+ element.a_type+'</th><tr><td> ' + element.count + '</td></tr>';        
             });
-            trHTML += '<tr><td>' + results[0] + '</td><td>' + results[1] + '</td><td>' +results[2] + '</td></tr>';
+/*            trHTML += '<tr><td>' + results[0] + '</td><td>' + results[1] + '</td><td>' +results[2] + '</td></tr>';*/
             $('#vacc_result_table').html(trHTML);          
         },
     });
